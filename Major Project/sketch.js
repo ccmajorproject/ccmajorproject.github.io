@@ -1,21 +1,16 @@
 //Node-Based Graph
 // The adjacency matrix defining the graph.
 
-let testPath, constructedPath;
 let finishedPath;
-
 let _ = Infinity; //No path connecting nodes;
-let nodeNetwork = [ //Index starts at 0;
-  [ _, 6, 5, _],
-  [ 6, _, _, 5],
-  [ 5, _, _, 9],
-  [ _, 5, 9, _],
-];
 
+let thirdFloor = [
+
+];
 
 function setup() {
   createCanvas(600, 600);
-  finishedPath = findPath(nodeNetwork, 0, 3);
+  finishedPath = findPath(thirdFloor, 2, 7);
   print(finishedPath);
 }
 
