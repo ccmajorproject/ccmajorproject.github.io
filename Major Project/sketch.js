@@ -4,15 +4,54 @@
 let finishedPath;
 let _ = Infinity; //No path connecting nodes;
 
-let thirdFloor = [
+let nodeLocations = [[20, 20], [20, 70], [70, 20], [20, 120], [70, 70], [120, 20], [120, 70], [70, 120], [120, 120]];
 
+let map = [
+  [0, 1, 1, _, _, _, _, _, _],
+  [1, 0, _, 1, 1, _, _, _, _],
+  [1, _, 0, _, 1, 1, _, _, _],
+  [_, 1, _, 0, _, _, _, 1, _],
+  [_, 1, 1, _, 0, _, 1, 1, _],
+  [_, _, 1, _, _, 0, 1, _, _],
+  [_, _, _, _, 1, 1, 0, _, 1],
+  [_, _, _, 1, 1, _, _, 0, 1],
+  [_, _, _, _, _, _, 1, 1, 0],
 ];
 
 function setup() {
   createCanvas(600, 600);
-  finishedPath = findPath(thirdFloor, 2, 7);
+  finishedPath = findPath(map, 0, 7);
   print(finishedPath);
 }
+
+function draw() {
+  background(255);
+  displayNodes(nodeLocations);
+  drawPath(finishedPath, nodeLocations);
+
+}
+
+function displayNodes(array) {
+  let count = -1;
+  for (let item of array) {
+    count += 1;
+    push();
+    strokeWeight(5);
+    point(item[0], item[1]);
+    text(""+count+"",item[0],item[1]);
+    pop();
+  }
+}
+
+function drawPath(pathArray, nodeLocations) {
+  for (let i = 0; i < pathArray.length - 1; i++) {
+    push();
+    strokeWeight(2);
+    line(nodeLocations[pathArray[i]][0], nodeLocations[pathArray[i]][1],nodeLocations[pathArray[i+1]][0], nodeLocations[pathArray[i+1]][1]);
+    pop();
+  }
+}
+
 
 function shortestPath(matrix, startVertex) {
 
@@ -68,6 +107,8 @@ function constructPath(object, endVertex) {
     endVertex = object.tree[endVertex];
   }
   while (endVertex !== object.startVertex);
+
+  path.unshift(object.startVertex);
   return path;
 }
 
