@@ -19,8 +19,8 @@ function preload(){
 function setup() {
   createCanvas(windowWidth, windowHeight);
   image(map1, 0, 0, map1.height/3.5, map1.width/3.5);
-  image(map2, 600, 0, map2.height/1.5, map2.width/3.5);
-  image(map3, 350, 560, map3.height/0.7, map3.width/4.5);
+  image(map2, 0, 600, map2.height/1.5, map2.width/3.5);
+  image(map3, 0, 1200, map3.height/0.7, map3.width/4.5);
 
   counter = 1;
 }
