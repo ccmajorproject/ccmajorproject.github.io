@@ -2,20 +2,18 @@
 // The adjacency matrix defining the graph.
 
 let finishedPath;
-let _ = Infinity; //No path connecting nodes;
-
 let nodeLocations = [[20, 20], [20, 70], [70, 20], [20, 120], [70, 70], [120, 20], [120, 70], [70, 120], [120, 120]];
 
 function setup() {
   createCanvas(600, 600);
-  finishedPath = findPath(map, 0, 7);
+  finishedPath = findPath(firstFloor, 0, 14);
   print(finishedPath);
 }
 
 function draw() {
   background(255);
-  displayNodes(nodeLocations);
-  drawPath(finishedPath, nodeLocations);
+  //displayNodes(nodeLocations);
+  //drawPath(finishedPath, nodeLocations);
 
 }
 
