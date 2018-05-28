@@ -15,15 +15,15 @@ function preload(){
 
 }
 
-
 function setup() {
-  createCanvas(windowWidth, windowHeight);
-  image(map1, 0, 0, map1.height/3.5, map1.width/3.5);
-  image(map2, 0, 600, map2.height/1.5, map2.width/3.5);
-  image(map3, 0, 1200, map3.height/0.7, map3.width/4.5);
+  createCanvas(800, 2000);
+  image(map1, 0, 0, map1.height/2.5, map1.width/2.5);
+  image(map2, 0, map1.width/3 + 150, map2.height/1.5, map2.width/4.5);
+  image(map3, 0, map1.width/3 + map2.width/4.5 + 150, map3.height/0.7, map3.width/4.5);
 
   counter = 1;
 }
+
 
 function draw() {
   if (mouseIsPressed) {
@@ -36,10 +36,3 @@ function draw() {
     mouseIsPressed = false;
   }
 }
-
-// if (map2.width < map2.height) {
-//   image(map2, 0, 0, map2.height/2.5, map2.width/2.5);
-// }
-// else {
-//   image(map2, 0, 0, map2.width/2.5, map2.height/2.5);
-// }
