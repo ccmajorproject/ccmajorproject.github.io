@@ -2,19 +2,25 @@
 // The adjacency matrix defining the graph.
 
 let finishedPath;
-let nodeLocations = [[20, 20], [20, 70], [70, 20], [20, 120], [70, 70], [120, 20], [120, 70], [70, 120], [120, 120]];
+let map1, map2, map3;
+
+function preload(){
+  map1 = loadImage("images/floor1.png");
+  map2 = loadImage("images/floor2.png");
+  map3 = loadImage("images/floor3.png");
+
+}
 
 function setup() {
-  createCanvas(600, 600);
-  finishedPath = findPath(firstFloor, 0, 14);
-  print(finishedPath);
+  createCanvas(800, 2000);
+  image(map1, 0, 0, map1.height/2.5, map1.width/2.5);
+  image(map2, 0, map1.width/3 + 150, map2.height/1.5, map2.width/4.5);
+  image(map3, 0, map1.width/3 + map2.width/4.5 + 150, map3.height/0.7, map3.width/4.5);
+
 }
 
 function draw() {
   background(255);
-  //displayNodes(nodeLocations);
-  //drawPath(finishedPath, nodeLocations);
-
 }
 
 function displayNodes(array) {
