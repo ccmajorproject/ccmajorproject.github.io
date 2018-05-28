@@ -8,7 +8,6 @@ function preload(){
   map1 = loadImage("images/floor1.png");
   map2 = loadImage("images/floor2.png");
   map3 = loadImage("images/floor3.png");
-
 }
 
 function setup() {
