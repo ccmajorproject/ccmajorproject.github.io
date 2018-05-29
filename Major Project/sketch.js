@@ -3,7 +3,7 @@
 
 let finishedPath;
 let map1, map2, map3;
-
+let firstFloor = [[]];
 let nodeArray = [];
 
 function preload(){
@@ -30,8 +30,12 @@ function draw() {
     strokeWeight(5);
     point(item[0], item[1]);
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> afc6fae9a09f2f1a8d3b400dd4f86536c72e4f35
   image(map1, 0, 300, map1.height/2.5, map1.width/2.5);
-  image(map2, 0, map1.width/3 + 550, map2.height/1.5, map2.width/4.5);
+  image(map2, 0, map1.width/3 + 550, map2.height/1.7, map2.width/4.5);
   image(map3, width/2 - 250, map1.width/3 + map2.width/4.5 + 650, map3.height/0.7, map3.width/4.5);
 
   screenText();
