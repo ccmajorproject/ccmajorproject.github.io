@@ -4,6 +4,8 @@
 let finishedPath;
 let map1, map2, map3;
 
+let nodeArray = [];
+
 function preload(){
   map1 = loadImage("images/floor1.png");
   map2 = loadImage("images/floor2.png");
@@ -20,6 +22,16 @@ function setup() {
 
 function draw() {
   background(255);
+
+  if (mouseIsPressed) {
+    nodeArray.push([mouseX, mouseY]);
+    console.log([mouseX, mouseY]);
+    mouseIsPressed = false;
+  }
+  for (let item of nodeArray) {
+    strokeWeight(5);
+    point(item[0], item[1]);
+  }
 }
 
 function displayNodes(array) {
@@ -42,7 +54,6 @@ function drawPath(pathArray, nodeLocations) {
     pop();
   }
 }
-
 
 function shortestPath(matrix, startVertex) {
 
