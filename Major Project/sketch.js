@@ -19,7 +19,6 @@ function setup() {
 }
 
 function draw() {
-<<<<<<< HEAD
   background(255);
 
   if (mouseIsPressed) {
@@ -31,7 +30,6 @@ function draw() {
     strokeWeight(5);
     point(item[0], item[1]);
   }
-=======
   image(map1, 0, 300, map1.height/2.5, map1.width/2.5);
   image(map2, 0, map1.width/3 + 550, map2.height/1.5, map2.width/4.5);
   image(map3, width/2 - 250, map1.width/3 + map2.width/4.5 + 650, map3.height/0.7, map3.width/4.5);
@@ -53,8 +51,6 @@ function screenText() {
   text("Second Floor", width/2 , 1150);
   text("Third Floor", width/2 , 1680);
 
-
->>>>>>> 6037057e2cf95ee1125f826224ca2fd54b9e3596
 }
 
 
