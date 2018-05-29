@@ -11,17 +11,15 @@ function preload(){
 }
 
 function setup() {
-  createCanvas(800, 2000);
-  // image(map1, 0, 0, map1.height/2.5, map1.width/2.5);
-  // image(map2, 0, map1.width/3 + 150, map2.height/1.5, map2.width/4.5);
-  // image(map3, width/2 - 300, map1.width/3 + map2.width/4.5 + 150, map3.height/0.7, map3.width/4.5);
-
+  let cnv = createCanvas(800, 2000);
+  let x = (windowWidth - width) / 2;
+  cnv.position(x, 0);
 }
 
 function draw() {
   image(map1, 0, 150, map1.height/2.5, map1.width/2.5);
-  image(map2, 0, map1.width/3 + 400, map2.height/1.5, map2.width/4.5);
-  image(map3, width/2 - 250, map1.width/3 + map2.width/4.5 + 500, map3.height/0.7, map3.width/4.5);
+  image(map2, 0, map1.width/3 + 500, map2.height/1.5, map2.width/4.5);
+  image(map3, width/2 - 250, map1.width/3 + map2.width/4.5 + 600, map3.height/0.7, map3.width/4.5);
 
   screenText();
 }
@@ -29,16 +27,16 @@ function draw() {
 
 function screenText() {
   textStyle(BOLD);
-  textSize(40);
+  textSize(50);
   textAlign(CENTER);
   fill(0);
 
-  text("Walter Murray Collegiate Institute", width/2, 40);
+  text("Walter Murray Collegiate Institute", width/2, 50);
 
   textSize(20);
-  text("First Floor", width/2 , 110);
-  text("Second Floor", width/2 , 980);
-  text("Third Floor", width/2 , 1520);
+  text("First Floor", width/2 , 120);
+  text("Second Floor", width/2 , 1000);
+  text("Third Floor", width/2 , 1630);
 
 
 }
