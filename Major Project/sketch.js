@@ -17,9 +17,9 @@ function setup() {
 }
 
 function draw() {
-  image(map1, 0, 150, map1.height/2.5, map1.width/2.5);
-  image(map2, 0, map1.width/3 + 400, map2.height/1.5, map2.width/4.5);
-  image(map3, width/2 - 250, map1.width/3 + map2.width/4.5 + 500, map3.height/0.7, map3.width/4.5);
+  image(map1, 0, 300, map1.height/2.5, map1.width/2.5);
+  image(map2, 0, map1.width/3 + 550, map2.height/1.5, map2.width/4.5);
+  image(map3, width/2 - 250, map1.width/3 + map2.width/4.5 + 650, map3.height/0.7, map3.width/4.5);
 
   screenText();
 }
@@ -34,9 +34,9 @@ function screenText() {
   text("Walter Murray Collegiate Institute", width/2, 50);
 
   textSize(20);
-  text("First Floor", width/2 , 120);
-  text("Second Floor", width/2 , 1000);
-  text("Third Floor", width/2 , 1530);
+  text("First Floor", width/2 , 270);
+  text("Second Floor", width/2 , 1150);
+  text("Third Floor", width/2 , 1680);
 
 
 }
