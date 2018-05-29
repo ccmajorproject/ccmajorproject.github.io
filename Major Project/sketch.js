@@ -13,15 +13,37 @@ function preload(){
 
 function setup() {
   createCanvas(800, 2000);
-  image(map1, 0, 0, map1.height/2.5, map1.width/2.5);
-  image(map2, 0, map1.width/3 + 150, map2.height/1.5, map2.width/4.5);
-  image(map3, 0, map1.width/3 + map2.width/4.5 + 150, map3.height/0.7, map3.width/4.5);
+  // image(map1, 0, 0, map1.height/2.5, map1.width/2.5);
+  // image(map2, 0, map1.width/3 + 150, map2.height/1.5, map2.width/4.5);
+  // image(map3, width/2 - 300, map1.width/3 + map2.width/4.5 + 150, map3.height/0.7, map3.width/4.5);
 
 }
 
 function draw() {
-  background(255);
+  image(map1, 0, 150, map1.height/2.5, map1.width/2.5);
+  image(map2, 0, map1.width/3 + 400, map2.height/1.5, map2.width/4.5);
+  image(map3, width/2 - 250, map1.width/3 + map2.width/4.5 + 500, map3.height/0.7, map3.width/4.5);
+
+  screenText();
 }
+
+
+function screenText() {
+  textStyle(BOLD);
+  textSize(40);
+  textAlign(CENTER);
+  fill(0);
+
+  text("Walter Murray Collegiate Institute", width/2, 40);
+
+  textSize(20);
+  text("First Floor", width/2 , 110);
+  text("Second Floor", width/2 , 980);
+  text("Third Floor", width/2 , 1520);
+
+
+}
+
 
 function displayNodes(array) {
   let count = -1;
