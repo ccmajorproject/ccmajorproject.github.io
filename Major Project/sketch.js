@@ -16,7 +16,7 @@ function setup() {
   let x = (windowWidth - width) / 2;
   cnv.position(x, 0);
 
-  finishedPath = findPath(firstFloor, 29, 16);
+  finishedPath = findPath(firstFloor, 3, 45);
 }
 
 function draw() {
@@ -28,8 +28,10 @@ function draw() {
 
   screenText();
 
+  displayNodes(secondFloorLocations);
   displayNodes(firstFloorLocations);
-  drawPath(finishedPath, firstFloorLocations);
+  displayNodes(thirdFloorLocations);
+  drawPath(finishedPath, firstFloorLocations, 0, 46);
 }
 
 
@@ -41,7 +43,7 @@ function screenText() {
 
   text("Walter Murray Collegiate Institute", width/2, 50);
 
-  textSize(20);
+  textSize(10);
   text("First Floor", width/2 , 270);
   text("Second Floor", width/2 , 1150);
   text("Third Floor", width/2 , 1680);
@@ -56,7 +58,7 @@ function displayNodes(array) {
     push();
     strokeWeight(5);
     point(item[0], item[1]);
-    textSize(10);
+    textSize(20);
     text(""+count+"",item[0],item[1]);
     pop();
   }
@@ -65,11 +67,18 @@ function displayNodes(array) {
 function drawPath(pathArray, nodeLocations) {
   for (let i = 0; i < pathArray.length - 1; i++) {
     push();
-    stroke(255, 0, 0);
-    strokeWeight(2);
-    line(nodeLocations[pathArray[i]][0], nodeLocations[pathArray[i]][1],nodeLocations[pathArray[i+1]][0], nodeLocations[pathArray[i+1]][1]);
+    stroke(63, 142, 193);
+    strokeWeight(4);
+    line(nodeLocations[pathArray[i]][0], nodeLocations[pathArray[i]][1], nodeLocations[pathArray[i+1]][0], nodeLocations[pathArray[i+1]][1]);
     pop();
   }
+  noStroke();
+  fill(0, 0, 255);
+  ellipse(nodeLocations[pathArray[0]][0], nodeLocations[pathArray[0]][1], 13, 13);
+  ellipse(nodeLocations[pathArray[pathArray.length - 1]][0], nodeLocations[pathArray[pathArray.length - 1]][1], 13, 13);
+  fill(63, 142, 193, 120);
+  ellipse(nodeLocations[pathArray[0]][0], nodeLocations[pathArray[0]][1], 50, 50);
+  ellipse(nodeLocations[pathArray[pathArray.length - 1]][0], nodeLocations[pathArray[pathArray.length - 1]][1], 50, 50);
 }
 
 function shortestPath(matrix, startVertex) {
