@@ -15,26 +15,21 @@ function setup() {
   let cnv = createCanvas(800, 2000);
   let x = (windowWidth - width) / 2;
   cnv.position(x, 0);
+
+  finishedPath = findPath(firstFloor, 29, 16);
 }
 
 function draw() {
   background(255);
-
-  if (mouseIsPressed) {
-    nodeArray.push([mouseX, mouseY]);
-    console.log([mouseX, mouseY]);
-    mouseIsPressed = false;
-  }
-  for (let item of nodeArray) {
-    strokeWeight(5);
-    point(item[0], item[1]);
-  }
 
   image(map1, 0, 300, map1.height/2.5, map1.width/2.5);
   image(map2, 0, map1.width/3 + 550, map2.height/1.7, map2.width/4.5);
   image(map3, width/2 - 250, map1.width/3 + map2.width/4.5 + 650, map3.height/0.7, map3.width/4.5);
 
   screenText();
+
+  displayNodes(firstFloorLocations);
+  drawPath(finishedPath, firstFloorLocations);
 }
 
 
@@ -61,6 +56,7 @@ function displayNodes(array) {
     push();
     strokeWeight(5);
     point(item[0], item[1]);
+    textSize(10);
     text(""+count+"",item[0],item[1]);
     pop();
   }
@@ -69,6 +65,7 @@ function displayNodes(array) {
 function drawPath(pathArray, nodeLocations) {
   for (let i = 0; i < pathArray.length - 1; i++) {
     push();
+    stroke(255, 0, 0);
     strokeWeight(2);
     line(nodeLocations[pathArray[i]][0], nodeLocations[pathArray[i]][1],nodeLocations[pathArray[i+1]][0], nodeLocations[pathArray[i+1]][1]);
     pop();
