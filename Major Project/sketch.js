@@ -17,10 +17,14 @@ function setup() {
   let x = (windowWidth - width) / 2;
   cnv.position(x, 0);
 
+<<<<<<< HEAD
 
   finishedPath = findPath(thirdFloor, 4, 7);
 
   finishedPath = findPath(firstFloor, 3, 45);
+=======
+  finishedPath = findPath(firstFloor, 16, 42);
+>>>>>>> cde736378e362ea21a047efce79749adac54d373
 }
 
 function draw() {
@@ -32,16 +36,18 @@ function draw() {
 
   screenText();
 
+<<<<<<< HEAD
 
   displayNodes(thirdFloorLocations);
   drawPath(finishedPath, thirdFloorLocations);
 
+=======
+>>>>>>> cde736378e362ea21a047efce79749adac54d373
   displayNodes(secondFloorLocations);
   displayNodes(firstFloorLocations);
   displayNodes(thirdFloorLocations);
   drawPath(finishedPath, firstFloorLocations, 0, 46);
 }
-
 
 function screenText() {
   textStyle(BOLD);
@@ -51,7 +57,7 @@ function screenText() {
 
   text("Walter Murray Collegiate Institute", width/2, 50);
 
-  textSize(10);
+  textSize(25);
   text("First Floor", width/2 , 270);
   text("Second Floor", width/2 , 1150);
   text("Third Floor", width/2 , 1680);
