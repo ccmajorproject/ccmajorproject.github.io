@@ -18,7 +18,6 @@ function setup() {
   cnv.position(x, 0);
 
   finishedPath = findPath(firstFloor, 3, 45);
-
 }
 
 function draw() {
@@ -38,6 +37,7 @@ function draw() {
 
 }
 
+
 function screenText() {
   textStyle(BOLD);
   textSize(50);
@@ -46,7 +46,7 @@ function screenText() {
 
   text("Walter Murray Collegiate Institute", width/2, 50);
 
-  textSize(25);
+  textSize(10);
   text("First Floor", width/2 , 270);
   text("Second Floor", width/2 , 1150);
   text("Third Floor", width/2 , 1680);
@@ -59,7 +59,7 @@ function displayNodes(array) {
     push();
     strokeWeight(5);
     point(item[0], item[1]);
-    textSize(10);
+    textSize(20);
     text(""+count+"",item[0],item[1]);
     pop();
   }
