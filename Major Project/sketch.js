@@ -4,6 +4,7 @@
 let finishedPath;
 let map1, map2, map3;
 let nodeArray = [];
+let hypArray = [];
 
 function preload(){
   map1 = loadImage("images/floor1.png");
@@ -16,7 +17,7 @@ function setup() {
   let x = (windowWidth - width) / 2;
   cnv.position(x, 0);
 
-  finishedPath = findPath(firstFloor, 3, 45);
+  finishedPath = findPath(firstFloor, 16, 42);
 }
 
 function draw() {
@@ -28,14 +29,11 @@ function draw() {
 
   screenText();
 
-  drawPath(finishedPath, thirdFloorLocations);
-
   displayNodes(secondFloorLocations);
   displayNodes(firstFloorLocations);
   displayNodes(thirdFloorLocations);
-
+  drawPath(finishedPath, firstFloorLocations, 0, 46);
 }
-
 
 function screenText() {
   textStyle(BOLD);
@@ -45,14 +43,12 @@ function screenText() {
 
   text("Walter Murray Collegiate Institute", width/2, 50);
 
-  textSize(10);
+  textSize(25);
   text("First Floor", width/2 , 270);
   text("Second Floor", width/2 , 1150);
   text("Third Floor", width/2 , 1680);
 
 }
-
-
 function displayNodes(array) {
   let count = -1;
   for (let item of array) {
@@ -65,7 +61,6 @@ function displayNodes(array) {
     pop();
   }
 }
-
 function drawPath(pathArray, nodeLocations) {
   for (let i = 0; i < pathArray.length - 1; i++) {
     push();
@@ -84,14 +79,12 @@ function drawPath(pathArray, nodeLocations) {
 }
 
 function shortestPath(matrix, startVertex) {
-
   //Creates three arrays with length equal to matrix
   let done = new Array(matrix.length);
   let pathLengths = new Array(matrix.length);
   let predecessors = new Array(matrix.length);
 
   done[startVertex] = true;
-
   //Loops through matrix[startVertex] and writes the values into the pathLengths array
   for (let i = 0; i < matrix.length; i++) {
     pathLengths[i] = matrix[startVertex][i];
@@ -102,7 +95,6 @@ function shortestPath(matrix, startVertex) {
 
   //Length from node to itself is 0;
   pathLengths[startVertex] = 0;
-
   for (let i = 0; i < matrix.length - 1; i++) {
     let closest = -1;
     let closestDistance = Infinity;
@@ -129,7 +121,6 @@ function shortestPath(matrix, startVertex) {
     "distances": pathLengths,
     "tree": predecessors };
 }
-
 function constructPath(object, endVertex) {
   let path = [];
   do {
@@ -141,7 +132,22 @@ function constructPath(object, endVertex) {
   path.unshift(object.startVertex);
   return path;
 }
-
 function findPath(matrix, startNode, endNode) {
   return constructPath(shortestPath(matrix, startNode), endNode);
+}
+
+function nearestNode(array, coordinate) {
+  for (let i = 0; i < array.length; i++) {
+    let xDistance = abs(array[i][0] - coordinate[0]);
+    let yDistance = abs(array[i][1] - coordinate[1]);
+    let hyp = floor(sqrt(sq(xDistance) + sq(yDistance)));
+
+    hypArray.push(hyp);
+  }
+
+  smallestValue = Math.min.apply(null, hypArray);
+  position = hypArray.indexOf(smallestValue);
+  hypArray = [];
+
+  return position;
 }
