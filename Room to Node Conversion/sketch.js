@@ -3,60 +3,75 @@
 // June 4, 2018
 
 let otherRooms;
+let roomNumber, button, response, room;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
+
+  //User types in a room number
+  roomNumber = createInput('');
+  roomNumber.position(300, 65);
+
+  button = createButton('Submit');
+  button.position(roomNumber.x + roomNumber.width, 65);
+  button.mousePressed(sendToConvertor());
+
+  response = createElement('h4', 'Enter Room Number');
+  response.position(330, 20);
+
+
+  //User selects a room
   textAlign(CENTER);
   otherRooms = createSelect();
   otherRooms.position(50, 50);
   otherRooms.option('--');
   otherRooms.option('Main Entrance');
-  otherRooms.option('Stairs');
   otherRooms.option('Main Office');
   otherRooms.option('Washrooms');
   otherRooms.option('Washrooms (Gender Neutral)');
   otherRooms.option('Gym 1 (Girls)');
   otherRooms.option('Gym 2 (Boys)');
+  otherRooms.option('Library');
+  otherRooms.option('Cafeteria');
   otherRooms.option('Auditorium');
   otherRooms.option('Student Services');
+  otherRooms.option('Bleachers');
   otherRooms.option('SRC Room');
+  otherRooms.option ('Wrestling Room');
+  otherRooms.option ('Wrestling Room Entrance');
   otherRooms.option('Dance Studio');
-  otherRooms.option('Cafeteria');
   otherRooms.option('Courtyard');
-  otherRooms.changed(mySelectEvent);
+  otherRooms.option('Tech Doors North Entrance');
+  otherRooms.option('Tech Doors South Entrance');
+  otherRooms.changed(convertor);
 }
 
-function mySelectEvent() {
-  let item = otherRooms.value();
-  background(200);
-  textSize(50);
-  text('You will now be directed to the ' + item + '!', width/2, height/2);
+function sendToConvertor() {
+  room = roomNumber.value();
+  convertor(room);
 }
 
-
-function draw() {
-  convertor();
-}
+// function draw() {
+//   convertor();
+// }
 
 function convertor(input) {
+  input = input || otherRooms.value();
   //First Floor
-  if (input === 'main entrance') {
+  if (input === 'Main Entrance') {
     return [0, 1];
   }
-  else if (input === 'main office' || input === 'washrooms(gender neutral)') {
+  else if (input === 'Main Office' || input === 'Washrooms (Gender Neutral)') {
     return [1, 1];
   }
-  else if (input === 'auditorium') {
+  else if (input === 'Auditorium') {
     return [2, 1];
   }
-  else if (input === 'student services') {
+  else if (input === 'Student Services') {
     return [5, 1];
   }
-  else if (input === 'staircase1') {
-    return [6, 0];
-  }
-  else if (input === 101 || input === 102 || input === 103 || input === 'washrooms1') {
+  else if (input === 101 || input === 102 || input === 103 || input === 'Washrooms1') {
     return [7, 1];
   }
   else if (input === 104 ||input === 105 || input === 107) {
@@ -68,22 +83,16 @@ function convertor(input) {
   else if (input === 110 || input === 111) {
     return [10, 1];
   }
-  else if (input === 'staircase2') {
-    return [11, 0];
-  }
-  else if (input === 'washrooms2') {
+  else if (input === 'Washrooms2') {
     return [13, 1];
   }
   else if (input === 112 || input === 113 || input === 114) {
     return [15, 1];
   }
-  else if (input === 'dance studio') {
+  else if (input === 'Dance Studio') {
     return [16, 1];
   }
-  else if (input === 'staircase3') {
-    return [19, 0];
-  }
-  else if (input === 119 || input === 121 || input === 'cafeteria') {
+  else if (input === 119 || input === 121 || input === 'Cafeteria') {
     return [20, 1];
   }
   else if (input === 122 || input === 123 || input === 125) {
@@ -92,31 +101,25 @@ function convertor(input) {
   else if (input === 127) {
     return [22, 1];
   }
-  else if (input === 'staircase4') {
-    return [23, 0];
-  }
   else if (input === 126 || input === 129) {
     return [24, 1];
   }
-  else if (input === 'courtyard') {
+  else if (input === 'Courtyard') {
     return [26, 1];
   }
-  else if (input === 'staircase5') {
-    return [27, 0];
-  }
-  else if (input === 'gym1(girls)') {
+  else if (input === 'Gym1 (Girls)') {
     return [29, 1];
   }
   else if (input === 130 || input === 132) {
     return [32, 1];
   }
-  else if (input === 'gym2(boys)') {
+  else if (input === 'Gym2 (Boys)') {
     return [35, 1];
   }
   else if (input === 132 || input === 133 || input === 134) {
     return [36, 1];
   }
-  else if (input === 'entrance/exit1') {
+  else if (input === 'Tech Doors North Entrance') {
     return [37, 1];
   }
   else if (input === 135 || input === 138 || input === 140 || input === 142) {
@@ -128,22 +131,22 @@ function convertor(input) {
   else if (input === 141) {
     return [40, 1];
   }
-  else if (input === 'entrance/exit2') {
-    return [41, 1];
+  else if (input === 'Tech Doors South Entrance') {
+    return [42, 1];
   }
-  else if (input === 'wrestling room') {
+  else if (input === 'Wrestling Room') {
     return [43, 1];
   }
   else if (input === 146 || input === 148) {
     return [44, 1];
   }
-  else if (input === 'entrance/exit3') {
+  else if (input === 'Wrestling Room Entrance') {
     return [45, 1];
   }
 
 
   //Second Floor
-  else if (input === 205 || input === 207 || input === 208 || input === 'washrooms3') {
+  else if (input === 205 || input === 207 || input === 208 || input === 'Washrooms3') {
     return [2, 2];
   }
   else if (input === 209 || input === 210 || input === 211) {
@@ -155,7 +158,7 @@ function convertor(input) {
   else if (input === 215 || input === 216) {
     return [5, 2];
   }
-  else if (input === 'washrooms4') {
+  else if (input === 'Washrooms4') {
     return [8, 2];
   }
   else if (input === 217) {
@@ -176,16 +179,16 @@ function convertor(input) {
   else if (input === 233) {
     return [19, 2];
   }
-  else if (input === 235 || input === 237) {
+  else if (input === 235 || input === 237 || input === 'Library') {
     return [21, 2];
   }
-  else if (input === 201 || input === 203 || input === '204(src)' || input === 206) {
+  else if (input === 201 || input === 203 || input === 'SRC Room' || input === 206) {
     return [23, 2];
   }
   else if (input === 200 || input === 202) {
     return [24, 2];
   }
-  else if (input === 'bleachers') {
+  else if (input === 'Bleachers') {
     return [25, 2];
   }
   else if (input === 224 || input === 230 || input === 225) {
@@ -200,7 +203,7 @@ function convertor(input) {
   else if (input === 301) {
     return [1, 3];
   }
-  else if (input === 303 || input === 'washrooms5') {
+  else if (input === 303 || input === 'Washrooms5') {
     return [2, 3];
   }
   else if (input === 302 || input === 304 || input === 305) {
