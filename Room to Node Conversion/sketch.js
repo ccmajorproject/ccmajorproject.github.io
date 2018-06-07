@@ -26,6 +26,14 @@ function setup() {
   fill(0);
   textSize(32);
   text("Current position: " + nf(lat,2,2) + " " + nf(lng,2,2), 10, height/2);
+
+
+  geolocation.watchPosition(positionChanged)
+}
+
+function positionChanged(position) {
+  print("lat: " + position.latitude);
+  print("long: " + position.longitude);
 }
 
 
