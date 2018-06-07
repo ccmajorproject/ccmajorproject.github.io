@@ -7,20 +7,35 @@ let roomNumber, button, response, room;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  roomInput();
+  pickRoom();
+}
 
 
+
+function roomInput() {
   //User types in a room number
   roomNumber = createInput('');
   roomNumber.position(300, 65);
 
   button = createButton('Submit');
   button.position(roomNumber.x + roomNumber.width, 65);
-  button.mousePressed(sendToConvertor());
+  button.mousePressed(sendToConvertor);
 
   response = createElement('h4', 'Enter Room Number');
   response.position(330, 20);
+}
 
 
+
+function sendToConvertor() {
+  room = int(roomNumber.value());
+  convertor(room);
+}
+
+
+
+function pickRoom() {
   //User selects a room
   textAlign(CENTER);
   otherRooms = createSelect();
@@ -47,17 +62,11 @@ function setup() {
   otherRooms.changed(convertor);
 }
 
-function sendToConvertor() {
-  room = roomNumber.value();
-  convertor(room);
-}
 
-// function draw() {
-//   convertor();
-// }
 
 function convertor(input) {
   input = input || otherRooms.value();
+
   //First Floor
   if (input === 'Main Entrance') {
     return [0, 1];
