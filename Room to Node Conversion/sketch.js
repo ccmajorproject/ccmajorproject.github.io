@@ -6,10 +6,29 @@ let otherRooms;
 let roomNumber, button, response, room;
 
 function setup() {
+  textAlign(CENTER);
   createCanvas(windowWidth, windowHeight);
   roomInput();
   pickRoom();
+
+  console.log('starting');
+  noStroke();
+  // get position once
+  if (!navigator.geolocation) {
+    alert("navigator.geolocation is not available");
+  }
+  navigator.geolocation.getCurrentPosition(setPos);
+  }
+
+  function setPos(position) {
+  let lat = position.coords.latitude;
+  let lng = position.coords.longitude;
+  fill(0);
+  textSize(32);
+  text("Current position: " + nf(lat,2,2) + " " + nf(lng,2,2), 10, height/2);
 }
+
+
 
 
 
@@ -37,7 +56,6 @@ function sendToConvertor() {
 
 function pickRoom() {
   //User selects a room
-  textAlign(CENTER);
   otherRooms = createSelect();
   otherRooms.position(50, 50);
   otherRooms.option('--');
