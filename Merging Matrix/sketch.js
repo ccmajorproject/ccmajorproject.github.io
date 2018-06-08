@@ -18,7 +18,7 @@ function setup() {
   let x = (windowWidth - width) / 2;
   cnv.position(x, 0);
 
-  finishedPath = createFullPath([0, 1], [5, 3]);
+  finishedPath = createFullPath([18, 3], [1, 2]);
 
 }
 
@@ -175,10 +175,9 @@ function createFullPath(startNode, endNode) { //startNode and endNode are arrays
 
   else { //Same Floor Path
     floors = 1;
-    console.log("YEs");
     if (startNode[1] === 1) {
       matrix = firstFloor;
-      startLocs = firstFloorStairs;
+      startLocs = firstFloorLocations;
     }
     else if (startNode[1] === 2) {
       matrix = secondFloor;
@@ -188,7 +187,8 @@ function createFullPath(startNode, endNode) { //startNode and endNode are arrays
       matrix = thirdFloor;
       startLocs = thirdFloorLocations;
     }
-    startNodeRoute = findPath(matrix, startNode, endNode);
+    startNodeRoute = findPath(matrix, startNode[0], endNode[0]);
+
   }
 
   return {
@@ -258,7 +258,6 @@ function constructPath(object, endVertex) {
 function findPath(matrix, startNode, endNode) {
   return constructPath(shortestPath(matrix, startNode), endNode);
 }
-
 
 function nearestNode(array, coordinate) {
   for (let i = 0; i < array.length; i++) {
