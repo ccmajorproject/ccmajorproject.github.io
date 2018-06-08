@@ -8,6 +8,15 @@ let array = [[1, 2,], [20,400,], [43,67,], [12,43,], [6,5,], [100,100,], [234,65
 let hypArray = [];
 let smallestValue, position;
 
+let = firstMatrix = [
+  
+]
+
+
+
+
+
+
 function setup() {
   createCanvas(500, 500);
 }
@@ -19,6 +28,13 @@ function draw() {
     mouseIsPressed = false;
   }
 }
+
+
+
+
+
+
+
 
 function nearestNode(array, coordinate) {
   for (let i = 0; i < array.length; i++) {
