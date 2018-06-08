@@ -18,7 +18,7 @@ function setup() {
   let x = (windowWidth - width) / 2;
   cnv.position(x, 0);
 
-  finishedPath = createFullPath([18, 3], [1, 2]);
+  finishedPath = createFullPath([6, 3], [25, 2]);
 
 }
 
@@ -202,6 +202,7 @@ function createFullPath(startNode, endNode) { //startNode and endNode are arrays
 
 //Pathfinding Algorithm
 function shortestPath(matrix, startVertex) {
+
   //Creates three arrays with length equal to matrix
   let done = new Array(matrix.length);
   let pathLengths = new Array(matrix.length);
