@@ -18,7 +18,7 @@ function setup() {
   let x = (windowWidth - width) / 2;
   cnv.position(x, 0);
 
-  finishedPath = createFullPath([0, 1], [5, 3]);
+  finishedPath = createFullPath([2, 2], [15, 1]);
 
 }
 
