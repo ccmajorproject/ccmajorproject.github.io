@@ -23,11 +23,7 @@ function setup() {
   let x = (windowWidth - width) / 2;
   cnv.position(x, 0);
 
-<<<<<<< HEAD
   finishedPath = createFullPath([6, 3], [25, 2]);
-=======
-  finishedPath = createFullPath([18, 2], [1, 2]);
->>>>>>> 3b323847e570e7d28b963b4274d98f6a0d4255c4
 
   textAlign(CENTER);
   roomInput();
