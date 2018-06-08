@@ -8,19 +8,47 @@ let hypArray = [];
 
 let firstFloorPath, secondFloorPath, thirdFloorPath;
 
-function preload(){
+let otherRooms;
+let roomNumber, button, response, room;
+
+function preload() {
   map1 = loadImage("images/floor1.png");
   map2 = loadImage("images/floor2.png");
   map3 = loadImage("images/floor3.png");
 }
+
+
 function setup() {
   let cnv = createCanvas(800, 2000);
   let x = (windowWidth - width) / 2;
   cnv.position(x, 0);
 
-  finishedPath = createFullPath([2, 2], [15, 1]);
+  finishedPath = createFullPath([18, 2], [1, 2]);
 
+  textAlign(CENTER);
+  roomInput();
+  pickRoom();
+
+  // console.log('starting');
+  // noStroke();
+  // // get position once
+  // if (!navigator.geolocation) {
+  //   alert("navigator.geolocation is not available");
+  // }
+  // navigator.geolocation.getCurrentPosition(setPos);
+  // }
+  //
+  // function setPos(position) {
+  // let lat = position.coords.latitude;
+  // let lng = position.coords.longitude;
+  // fill(0);
+  // textSize(32);
+  // text("Current position: " + nf(lat,2,2) + " " + nf(lng,2,2), 10, height/2);
+  //
+  //
+  // geolocation.watchPosition(positionChanged)
 }
+
 
 function draw() {
   background(255);
@@ -175,10 +203,9 @@ function createFullPath(startNode, endNode) { //startNode and endNode are arrays
 
   else { //Same Floor Path
     floors = 1;
-    console.log("YEs");
     if (startNode[1] === 1) {
       matrix = firstFloor;
-      startLocs = firstFloorStairs;
+      startLocs = firstFloorLocations;
     }
     else if (startNode[1] === 2) {
       matrix = secondFloor;
@@ -188,7 +215,8 @@ function createFullPath(startNode, endNode) { //startNode and endNode are arrays
       matrix = thirdFloor;
       startLocs = thirdFloorLocations;
     }
-    startNodeRoute = findPath(matrix, startNode, endNode);
+    startNodeRoute = findPath(matrix, startNode[0], endNode[0]);
+
   }
 
   return {
@@ -258,7 +286,6 @@ function constructPath(object, endVertex) {
 function findPath(matrix, startNode, endNode) {
   return constructPath(shortestPath(matrix, startNode), endNode);
 }
-
 
 function nearestNode(array, coordinate) {
   for (let i = 0; i < array.length; i++) {
