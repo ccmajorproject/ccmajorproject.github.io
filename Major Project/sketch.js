@@ -17,14 +17,10 @@ function setup() {
   let x = (windowWidth - width) / 2;
   cnv.position(x, 0);
 
-<<<<<<< HEAD
-
   finishedPath = findPath(thirdFloor, 4, 7);
 
   finishedPath = findPath(firstFloor, 3, 45);
-=======
   finishedPath = findPath(firstFloor, 16, 42);
->>>>>>> cde736378e362ea21a047efce79749adac54d373
 }
 
 function draw() {
@@ -36,13 +32,10 @@ function draw() {
 
   screenText();
 
-<<<<<<< HEAD
 
   displayNodes(thirdFloorLocations);
   drawPath(finishedPath, thirdFloorLocations);
 
-=======
->>>>>>> cde736378e362ea21a047efce79749adac54d373
   displayNodes(secondFloorLocations);
   displayNodes(firstFloorLocations);
   displayNodes(thirdFloorLocations);

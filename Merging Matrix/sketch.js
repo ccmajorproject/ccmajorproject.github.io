@@ -8,19 +8,51 @@ let hypArray = [];
 
 let firstFloorPath, secondFloorPath, thirdFloorPath;
 
-function preload(){
+let otherRooms;
+let roomNumber, button, response, room;
+
+function preload() {
   map1 = loadImage("images/floor1.png");
   map2 = loadImage("images/floor2.png");
   map3 = loadImage("images/floor3.png");
 }
+
+
 function setup() {
   let cnv = createCanvas(800, 2000);
   let x = (windowWidth - width) / 2;
   cnv.position(x, 0);
 
+<<<<<<< HEAD
   finishedPath = createFullPath([6, 3], [25, 2]);
+=======
+  finishedPath = createFullPath([18, 2], [1, 2]);
+>>>>>>> 3b323847e570e7d28b963b4274d98f6a0d4255c4
 
+  textAlign(CENTER);
+  roomInput();
+  pickRoom();
+
+  // console.log('starting');
+  // noStroke();
+  // // get position once
+  // if (!navigator.geolocation) {
+  //   alert("navigator.geolocation is not available");
+  // }
+  // navigator.geolocation.getCurrentPosition(setPos);
+  // }
+  //
+  // function setPos(position) {
+  // let lat = position.coords.latitude;
+  // let lng = position.coords.longitude;
+  // fill(0);
+  // textSize(32);
+  // text("Current position: " + nf(lat,2,2) + " " + nf(lng,2,2), 10, height/2);
+  //
+  //
+  // geolocation.watchPosition(positionChanged)
 }
+
 
 function draw() {
   background(255);
