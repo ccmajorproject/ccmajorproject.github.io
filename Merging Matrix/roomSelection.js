@@ -7,6 +7,25 @@ function positionChanged(position) {
   print("long: " + position.longitude);
 }
 
+function startRoom() {
+  let array;
+  if (mouseIsPressed) {
+    if (mouseY < 1100) {
+      array = firstFloorLocations;
+      start = [nearestNode(array, [mouseX, mouseY]), 1];
+    }
+    else if (mouseY < 1640) {
+      array = secondFloorLocations;
+      start = [nearestNode(array, [mouseX, mouseY]), 2];
+    }
+    else if (mouseY > 1640) {
+      array = thirdFloorLocations;
+      start = [nearestNode(array, [mouseX, mouseY]), 3];
+    }
+    mouseIsPressed = false;
+  }
+}
+
 
 function roomInput() {
   //User types in a room number
@@ -15,20 +34,19 @@ function roomInput() {
 
   button = createButton('Submit');
   button.position(roomNumber.x + roomNumber.width, 120);
-  button.mousePressed(sendToConvertor);
+  button.mousePressed(function() {
+    end = null;
+    sendToConvertor(int(roomNumber.value()))
+  });
 
   response = createElement('h4', 'Enter Room Number');
   response.position(330, 80);
 }
 
 
-
-function sendToConvertor() {
-  room = int(roomNumber.value());
-  convertor(room);
+function sendToConvertor(input) {
+  end = convertor(input);
 }
-
-
 
 function pickRoom() {
   //User selects a room
@@ -47,15 +65,18 @@ function pickRoom() {
   otherRooms.option('Student Services');
   otherRooms.option('Bleachers');
   otherRooms.option('SRC Room');
-  otherRooms.option ('Wrestling Room');
-  otherRooms.option ('Wrestling Room Entrance');
+  otherRooms.option('Wrestling Room');
+  otherRooms.option('Wrestling Room Entrance');
   otherRooms.option('Dance Studio');
   otherRooms.option('Courtyard');
   otherRooms.option('Tech Doors North Entrance');
   otherRooms.option('Tech Doors South Entrance');
-  otherRooms.changed(convertor);
-}
+  otherRooms.changed(function() {
+    end = null;
+    sendToConvertor(otherRooms.value())
 
+  });
+}
 
 
 function convertor(input) {
@@ -220,5 +241,8 @@ function convertor(input) {
   }
   else if (input === 309 || input === 310) {
     return [6, 3];
+  }
+  else {
+    return start;
   }
 }

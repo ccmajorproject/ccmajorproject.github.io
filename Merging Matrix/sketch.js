@@ -11,6 +11,9 @@ let firstFloorPath, secondFloorPath, thirdFloorPath;
 let otherRooms;
 let roomNumber, button, response, room;
 
+let start = null;
+let end = null;
+
 function preload() {
   map1 = loadImage("images/floor1.png");
   map2 = loadImage("images/floor2.png");
@@ -23,9 +26,8 @@ function setup() {
   let x = (windowWidth - width) / 2;
   cnv.position(x, 0);
 
-  finishedPath = createFullPath([6, 3], [25, 2]);
-
   textAlign(CENTER);
+
   roomInput();
   pickRoom();
 
@@ -51,6 +53,7 @@ function setup() {
 
 
 function draw() {
+
   background(255);
 
   image(map1, 0, 300, map1.height/2.5, map1.width/2.5);
@@ -63,8 +66,12 @@ function draw() {
   displayNodes(firstFloorLocations);
   displayNodes(thirdFloorLocations);
 
-  drawFullPath(finishedPath);
+  startRoom();
 
+  if (start !== null && end !== null) {
+    finishedPath = createFullPath(start, end);
+    drawFullPath(finishedPath);
+  }
 }
 
 function screenText() {
