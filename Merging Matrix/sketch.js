@@ -43,7 +43,11 @@ function setup() {
   //input and drop down bar for UI.
   roomInput();
   pickRoom();
+<<<<<<< HEAD
   refreshButton();
+=======
+
+>>>>>>> 99be40583192d28ff49c52eac5f37694dda2f231
 }
 
 
@@ -65,23 +69,22 @@ function draw() {
 
   startRoom();
 
+  //Draws the true starting position of the user
   if (trueStartCoord !== null && trueStartNode !== null) {
-    push();
-    stroke(63, 142, 193);
-    strokeWeight(4);
-    line(trueStartCoord[0], trueStartCoord[1], trueStartNode[0], trueStartNode[1])
-    pop();
+    drawStartPosition();
   }
-
+  //If both the start and the end node are defined, then it will draw the path
   if (start !== null && end !== null) {
     finishedPath = createFullPath(start, end);
     drawFullPath(finishedPath);
+
   }
 }
 
 
 
 function screenText() {
+  push();
   textStyle(BOLD);
   textSize(50);
   textAlign(CENTER);
@@ -94,7 +97,10 @@ function screenText() {
   text("Second Floor", width/2 , 1150);
   text("Third Floor", width/2 , 1680);
 
+  pop();
+
 }
+
 function displayNodes(array) {
   let count = -1;
   for (let item of array) {
@@ -117,13 +123,6 @@ function drawSinglePath(pathArray, nodeLocations) {
     line(nodeLocations[pathArray[i]][0], nodeLocations[pathArray[i]][1], nodeLocations[pathArray[i+1]][0], nodeLocations[pathArray[i+1]][1]);
     pop();
   }
-  noStroke();
-  fill(0, 0, 255);
-  ellipse(nodeLocations[pathArray[0]][0], nodeLocations[pathArray[0]][1], 13, 13);
-  ellipse(nodeLocations[pathArray[pathArray.length - 1]][0], nodeLocations[pathArray[pathArray.length - 1]][1], 13, 13);
-  fill(63, 142, 193, 120);
-  //ellipse(nodeLocations[pathArray[0]][0], nodeLocations[pathArray[0]][1], 50, 50);
-  //ellipse(nodeLocations[pathArray[pathArray.length - 1]][0], nodeLocations[pathArray[pathArray.length - 1]][1], 50, 50);
 }
 function drawFullPath(paths) {
   let startNodeRoute = paths.startNodeRoute;
@@ -141,6 +140,47 @@ function drawFullPath(paths) {
   else {
     drawSinglePath(startNodeRoute, startNodeMatrix);
   }
+
+  drawStartLine();
+  drawStartPosition();
+  drawEndPosition();
+
+}
+
+function drawStartPosition() {
+  push();
+  noStroke();
+  fill(0, 0, 255);
+  ellipse(trueStartCoord[0], trueStartCoord[1], 15, 15);
+  fill(0, 0, 255, 100);
+  ellipse(trueStartCoord[0], trueStartCoord[1], 40, 40)
+  pop();
+}
+function drawStartLine() {
+  push();
+  stroke(63, 142, 193);
+  strokeWeight(4);
+  line(trueStartCoord[0], trueStartCoord[1], trueStartNode[0], trueStartNode[1])
+  pop();
+}
+function drawEndPosition() {
+  let positions;
+  push();
+  if (end[1] === 1) {
+    positions = firstFloorLocations;
+  }
+  else if (end[1] === 2) {
+    positions = secondFloorLocations;
+  }
+  else if (end[1] === 3) {
+    positions = thirdFloorLocations;
+  }
+  noStroke();
+  fill(0, 255, 0);
+  ellipse(positions[end[0]][0], positions[end[0]][1], 15, 15);
+  fill(0, 255, 0, 100);
+  ellipse(positions[end[0]][0], positions[end[0]][1], 40, 40);
+  pop();
 }
 
 function createFullPath(startNode, endNode) { //startNode and endNode are arrays with [nodeNumber, floor] -> stairs are 0
@@ -302,6 +342,7 @@ function findPath(matrix, startNode, endNode) {
   return constructPath(shortestPath(matrix, startNode), endNode);
 }
 
+//Finds the nearest node in the defined matrix according to the X and Y Position
 function nearestNode(array, coordinate) {
   for (let i = 0; i < array.length; i++) {
     let xDistance = abs(array[i][0] - coordinate[0]);
