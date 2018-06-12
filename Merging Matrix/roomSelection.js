@@ -39,14 +39,13 @@ function roomInput() {
   button1 = createButton('Submit');
   button1.position(roomNumber.x + roomNumber.width, 120);
   button1.mousePressed(function() {
-    // end = null;
-    // sendToConvertor(int(roomNumber.value()))
+    end = null;
+    sendToConvertor(int(roomNumber.value()))
   });
 
   text1 = createElement('h4', 'Enter Room Number');
   text1.position(670, 80);
 }
-
 
 function test() {
   end = null;
