@@ -46,20 +46,20 @@ function roomInput() {
   text1.position(670, 80);
 }
 
-// function legend() {
-//   let x = 40;
-//   let y = 110;
-//   push();
-//   rectMode(CENTER);
-//   textAlign(LEFT);
-//   text('= Washrooms', x, y);
-//   text('= Stairs', x, y + 30);
-//   fill(61, 255, 161);
-//   rect(x - 20, y - 5, 20, 20);
-//   fill(237, 206, 83);
-//   rect(x - 20, y + 25, 20, 20);
-//   pop();
-// }
+function legend() {
+  let x = 40;
+  let y = 110;
+  push();
+  rectMode(CENTER);
+  textAlign(LEFT);
+  text('= Washrooms', x, y);
+  text('= Stairs', x, y + 30);
+  fill(61, 255, 161);
+  rect(x - 20, y - 5, 20, 20);
+  fill(237, 206, 83);
+  rect(x - 20, y + 25, 20, 20);
+  pop();
+}
 
 
 
