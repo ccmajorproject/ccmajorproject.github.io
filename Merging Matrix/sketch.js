@@ -64,7 +64,7 @@ function draw() {
   displayNodes(thirdFloorLocations);
 
   startRoom();
-
+  legend();
   //Draws the true starting position of the user
   if (trueStartCoord !== null && trueStartNode !== null) {
     drawStartPosition();

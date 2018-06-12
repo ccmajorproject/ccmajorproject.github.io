@@ -30,7 +30,6 @@ function startRoom() {
   }
 }
 
-
 function roomInput() {
   //User types in a room number
   roomNumber = createInput('');
@@ -46,6 +45,23 @@ function roomInput() {
   text1 = createElement('h4', 'Enter Room Number');
   text1.position(670, 80);
 }
+
+function legend() {
+  let x = 60;
+  let y = 110;
+  push();
+  rectMode(CENTER);
+  textAlign(LEFT);
+  text('= Washrooms', x, y);
+  text('= Stairs', x, y + 30);
+  fill(61, 255, 161);
+  rect(x - 20, y - 5, 20, 20);
+  fill(237, 206, 83);
+  rect(x - 20, y + 25, 20, 20);
+  pop();
+}
+
+
 
 function test() {
   end = null;
@@ -63,7 +79,7 @@ function pickRoom() {
 
   //User selects a room
   otherRooms = createSelect();
-  otherRooms.position(410, 120);
+  otherRooms.position(410, 122.5);
   otherRooms.option('--');
   otherRooms.option('Main Entrance');
   otherRooms.option('Main Office');
@@ -94,7 +110,7 @@ function pickRoom() {
 
 function refreshButton() {
   button2 = createButton('Refresh');
-  button2.position(roomNumber.x + roomNumber.width + 280, 120);
+  button2.position(roomNumber.x + roomNumber.width + 110, 120);
   button2.mousePressed(refresh);
 }
 
