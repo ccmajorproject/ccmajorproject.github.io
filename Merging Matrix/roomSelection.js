@@ -2,10 +2,6 @@
 // Catherine Liu
 // June 4, 2018
 
-function positionChanged(position) {
-  print("lat: " + position.latitude);
-  print("long: " + position.longitude);
-}
 
 function startRoom() {
   let array;
@@ -31,7 +27,6 @@ function startRoom() {
 
     trueStartCoord = [mouseX, mouseY];
     mouseIsPressed = false;
-
   }
 }
 
@@ -39,17 +34,23 @@ function startRoom() {
 function roomInput() {
   //User types in a room number
   roomNumber = createInput('');
-  roomNumber.position(300, 120);
+  roomNumber.position(660, 120);
 
-  button = createButton('Submit');
-  button.position(roomNumber.x + roomNumber.width, 120);
-  button.mousePressed(function() {
-    end = null;
-    sendToConvertor(int(roomNumber.value()))
+  button1 = createButton('Submit');
+  button1.position(roomNumber.x + roomNumber.width, 120);
+  button1.mousePressed(function() {
+    // end = null;
+    // sendToConvertor(int(roomNumber.value()))
   });
 
-  response = createElement('h4', 'Enter Room Number');
-  response.position(330, 80);
+  text1 = createElement('h4', 'Enter Room Number');
+  text1.position(670, 80);
+}
+
+
+function test() {
+  end = null;
+  sendToConvertor(int(roomNumber.value()))
 }
 
 
@@ -58,9 +59,12 @@ function sendToConvertor(input) {
 }
 
 function pickRoom() {
+  text2 = createElement('h4', 'Other Room Options');
+  text2.position(410, 80);
+
   //User selects a room
   otherRooms = createSelect();
-  otherRooms.position(50, 120);
+  otherRooms.position(410, 120);
   otherRooms.option('--');
   otherRooms.option('Main Entrance');
   otherRooms.option('Main Office');
@@ -85,6 +89,21 @@ function pickRoom() {
     sendToConvertor(otherRooms.value())
 
   });
+}
+
+
+
+function refreshButton() {
+  button2 = createButton('Refresh');
+  button2.position(roomNumber.x + roomNumber.width + 280, 120);
+  button2.mousePressed(refresh);
+}
+
+function refresh() {
+  trueStartCoord = null;
+  trueStartNode = null;
+  start = null;
+  end = null;
 }
 
 

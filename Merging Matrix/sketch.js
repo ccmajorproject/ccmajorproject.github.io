@@ -1,6 +1,10 @@
-//Node-Based Graph
-// The adjacency matrix defining the graph.
+//WMCI Pathfinding Algorithm
+//Catherine Liu & Csaba Nemeth
+//CS30, Period 5, Mr. D. Schellenberg
+//June 15, 2018
 
+
+//Global Variables
 let finishedPath;
 let map1, map2, map3;
 let nodeArray = [];
@@ -12,11 +16,14 @@ let trueStartNode = null;
 let firstFloorPath, secondFloorPath, thirdFloorPath;
 
 let otherRooms;
-let roomNumber, button, response, room;
+let roomNumber, button1, button2, text1, text2, room;
 
 let start = null;
 let end = null;
 
+
+
+//loads all of the maps used in background.
 function preload() {
   map1 = loadImage("images/floor1.png");
   map2 = loadImage("images/floor2.png");
@@ -24,40 +31,28 @@ function preload() {
 }
 
 
+
 function setup() {
+  //makes the canvas a variable so that it behaves like an object and is easier to or shift.
   let cnv = createCanvas(800, 2000);
   let x = (windowWidth - width) / 2;
   cnv.position(x, 0);
 
   textAlign(CENTER);
 
+  //input and drop down bar for UI.
   roomInput();
   pickRoom();
-
-  // console.log('starting');
-  // noStroke();
-  // // get position once
-  // if (!navigator.geolocation) {
-  //   alert("navigator.geolocation is not available");
-  // }
-  // navigator.geolocation.getCurrentPosition(setPos);
-  // }
-  //
-  // function setPos(position) {
-  // let lat = position.coords.latitude;
-  // let lng = position.coords.longitude;
-  // fill(0);
-  // textSize(32);
-  // text("Current position: " + nf(lat,2,2) + " " + nf(lng,2,2), 10, height/2);
-  //
-  //
-  // geolocation.watchPosition(positionChanged)
+  refreshButton();
 }
+
+
 
 function draw() {
 
   background(255);
 
+  //alligning maps.
   image(map1, 0, 300, map1.height/2.5, map1.width/2.5);
   image(map2, 0, map1.width/3 + 550, map2.height/1.7, map2.width/4.5);
   image(map3, width/2 - 250, map1.width/3 + map2.width/4.5 + 650, map3.height/0.7, map3.width/4.5);
@@ -83,6 +78,8 @@ function draw() {
     drawFullPath(finishedPath);
   }
 }
+
+
 
 function screenText() {
   textStyle(BOLD);
