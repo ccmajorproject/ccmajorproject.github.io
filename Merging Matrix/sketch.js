@@ -6,6 +6,9 @@ let map1, map2, map3;
 let nodeArray = [];
 let hypArray = [];
 
+let trueStartCoord = null;
+let trueStartNode = null;
+
 let firstFloorPath, secondFloorPath, thirdFloorPath;
 
 let otherRooms;
@@ -51,7 +54,6 @@ function setup() {
   // geolocation.watchPosition(positionChanged)
 }
 
-
 function draw() {
 
   background(255);
@@ -67,6 +69,14 @@ function draw() {
   displayNodes(thirdFloorLocations);
 
   startRoom();
+
+  if (trueStartCoord !== null && trueStartNode !== null) {
+    push();
+    stroke(63, 142, 193);
+    strokeWeight(4);
+    line(trueStartCoord[0], trueStartCoord[1], trueStartNode[0], trueStartNode[1])
+    pop();
+  }
 
   if (start !== null && end !== null) {
     finishedPath = createFullPath(start, end);
@@ -115,8 +125,8 @@ function drawSinglePath(pathArray, nodeLocations) {
   ellipse(nodeLocations[pathArray[0]][0], nodeLocations[pathArray[0]][1], 13, 13);
   ellipse(nodeLocations[pathArray[pathArray.length - 1]][0], nodeLocations[pathArray[pathArray.length - 1]][1], 13, 13);
   fill(63, 142, 193, 120);
-  ellipse(nodeLocations[pathArray[0]][0], nodeLocations[pathArray[0]][1], 50, 50);
-  ellipse(nodeLocations[pathArray[pathArray.length - 1]][0], nodeLocations[pathArray[pathArray.length - 1]][1], 50, 50);
+  //ellipse(nodeLocations[pathArray[0]][0], nodeLocations[pathArray[0]][1], 50, 50);
+  //ellipse(nodeLocations[pathArray[pathArray.length - 1]][0], nodeLocations[pathArray[pathArray.length - 1]][1], 50, 50);
 }
 function drawFullPath(paths) {
   let startNodeRoute = paths.startNodeRoute;
