@@ -9,8 +9,8 @@ function positionChanged(position) {
 
 function startRoom() {
   let array;
-  if (mouseIsPressed) {
-    if (mouseY < 1100 && mouseY > 300) {
+  if (mouseIsPressed && mouseY > 295 && mouseX > 0 && mouseX < 700) {
+    if (mouseY < 1125) {
       array = firstFloorLocations;
       start = [nearestNode(array, [mouseX, mouseY]), 1];
       trueStartNode = array[start[0]];
