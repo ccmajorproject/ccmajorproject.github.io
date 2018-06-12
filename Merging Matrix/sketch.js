@@ -43,11 +43,7 @@ function setup() {
   //input and drop down bar for UI.
   roomInput();
   pickRoom();
-<<<<<<< HEAD
   refreshButton();
-=======
-
->>>>>>> 99be40583192d28ff49c52eac5f37694dda2f231
 }
 
 
