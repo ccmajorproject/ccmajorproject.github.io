@@ -43,6 +43,7 @@ function roomInput() {
   button1.position(roomNumber.x + roomNumber.width, 140);
   button1.mousePressed(function() {
     end = null;
+    mouseClickedPosition = false;
     sendToConvertor(int(roomNumber.value()), 'end')
     //sendConv(int(roomNumber.value()))
   });
@@ -51,6 +52,7 @@ function roomInput() {
   button3.position(roomNumberStart.x + roomNumberStart.width, 140);
   button3.mousePressed( function() {
     start = null;
+    mouseClickedPosition = false;
     sendToConvertor(int(roomNumberStart.value()), 'start')
   });
 
