@@ -10,7 +10,7 @@ let map1, map2, map3;
 let nodeArray = [];
 let hypArray = [];
 
-let clickedMousePosition = false;
+//let clickedMousePosition = false;
 
 let trueStartCoord = null;
 let trueStartNode = null;

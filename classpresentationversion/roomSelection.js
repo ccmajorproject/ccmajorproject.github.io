@@ -3,33 +3,33 @@
 // June 4, 2018
 
 
-function startRoom() {
-  let array;
-  if (mouseIsPressed && mouseY > 295 && mouseX > 0 && mouseX < 700 && !clickedMousePosition) {
-    if (mouseY < 1125) {
-      array = firstFloorLocations;
-      start = [nearestNode(array, [mouseX, mouseY]), 1];
-      trueStartNode = array[start[0]];
-    }
-    else if (mouseY < 1640) {
-      array = secondFloorLocations;
-      start = [nearestNode(array, [mouseX, mouseY]), 2];
-      trueStartNode = array[start[0]];
-    }
-    else if (mouseY > 1640) {
-      array = thirdFloorLocations;
-      start = [nearestNode(array, [mouseX, mouseY]), 3];
-      trueStartNode = array[start[0]];
-    }
-    else {
-      return
-    }
-
-    trueStartCoord = [mouseX, mouseY];
-    mouseIsPressed = false;
-    clickedMousePosition = true;
-  }
-}
+// function startRoom() {
+//   let array;
+//   if (mouseIsPressed && mouseY > 295 && mouseX > 0 && mouseX < 700 && !clickedMousePosition) {
+//     if (mouseY < 1125) {
+//       array = firstFloorLocations;
+//       start = [nearestNode(array, [mouseX, mouseY]), 1];
+//       trueStartNode = array[start[0]];
+//     }
+//     else if (mouseY < 1640) {
+//       array = secondFloorLocations;
+//       start = [nearestNode(array, [mouseX, mouseY]), 2];
+//       trueStartNode = array[start[0]];
+//     }
+//     else if (mouseY > 1640) {
+//       array = thirdFloorLocations;
+//       start = [nearestNode(array, [mouseX, mouseY]), 3];
+//       trueStartNode = array[start[0]];
+//     }
+//     else {
+//       return
+//     }
+//
+//     trueStartCoord = [mouseX, mouseY];
+//     mouseIsPressed = false;
+//     clickedMousePosition = true;
+//   }
+// }
 
 function roomInput() {
   //User types in a room number
@@ -43,7 +43,7 @@ function roomInput() {
   button1.position(roomNumber.x + roomNumber.width, 140);
   button1.mousePressed(function() {
     end = null;
-    mouseClickedPosition = false;
+    //mouseClickedPosition = false;
     sendToConvertor(int(roomNumber.value()), 'end')
     //sendConv(int(roomNumber.value()))
   });
@@ -52,7 +52,7 @@ function roomInput() {
   button3.position(roomNumberStart.x + roomNumberStart.width, 140);
   button3.mousePressed( function() {
     start = null;
-    mouseClickedPosition = false;
+    //mouseClickedPosition = false;
     sendToConvertor(int(roomNumberStart.value()), 'start')
   });
 
