@@ -5,7 +5,7 @@
 
 function startRoom() {
   let array;
-  if (mouseIsPressed && mouseY > 295 && mouseX > 0 && mouseX < 700) {
+  if (mouseIsPressed && mouseY > 295 && mouseX > 0 && mouseX < 700 && !clickedMousePosition) {
     if (mouseY < 1125) {
       array = firstFloorLocations;
       start = [nearestNode(array, [mouseX, mouseY]), 1];
