@@ -47,7 +47,7 @@ function roomInput() {
 }
 
 function legend() {
-  let x = 60;
+  let x = 40;
   let y = 110;
   push();
   rectMode(CENTER);
