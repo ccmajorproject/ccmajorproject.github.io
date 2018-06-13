@@ -33,17 +33,24 @@ function startRoom() {
 function roomInput() {
   //User types in a room number
   roomNumber = createInput('');
-  roomNumber.position(660, 120);
+  roomNumber.position(660, 140);
+
+  roomNumberStart = createInput('');
+  roomNumberStart.position(400, 140);
 
   button1 = createButton('Submit');
-  button1.position(roomNumber.x + roomNumber.width, 120);
+  button1.position(roomNumber.x + roomNumber.width, 140);
   button1.mousePressed(function() {
     end = null;
     sendToConvertor(int(roomNumber.value()))
   });
 
-  text1 = createElement('h4', 'Enter Room Number');
-  text1.position(670, 80);
+  button3 = createButton('Submit');
+  button3.position(roomNumberStart.x + roomNumberStart.width, 140);
+  
+
+  text1 = createElement('h6', 'Enter Room Number');
+  text1.position(680, 120);
 }
 
 function legend() {
@@ -74,12 +81,12 @@ function sendToConvertor(input) {
 }
 
 function pickRoom() {
-  text2 = createElement('h4', 'Other Room Options');
-  text2.position(410, 80);
+  text2 = createElement('h6', 'Other Room Options');
+  text2.position(680, 180);
 
   //User selects a room
   otherRooms = createSelect();
-  otherRooms.position(410, 122.5);
+  otherRooms.position(660, 200);
   otherRooms.option('--');
   otherRooms.option('Main Entrance');
   otherRooms.option('Main Office');

@@ -16,7 +16,7 @@ let trueStartNode = null;
 let firstFloorPath, secondFloorPath, thirdFloorPath;
 
 let otherRooms;
-let roomNumber, button1, button2, text1, text2, room;
+let roomNumber,roomNumberStart, button1, button2, button3,  text1, text2, text3, room;
 
 let start = null;
 let end = null;
@@ -92,6 +92,11 @@ function screenText() {
   text("First Floor", width/2 , 270);
   text("Second Floor", width/2 , 1150);
   text("Third Floor", width/2 , 1680);
+
+  fill(0,0,255);
+  textAlign(CORNERS);
+  text("Destination", 487, 100);
+  text("Starting Location", 260, 100);
 
   pop();
 
