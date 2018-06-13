@@ -27,6 +27,7 @@ function startRoom() {
 
     trueStartCoord = [mouseX, mouseY];
     mouseIsPressed = false;
+    clickedMousePosition = true;
   }
 }
 
@@ -42,12 +43,16 @@ function roomInput() {
   button1.position(roomNumber.x + roomNumber.width, 140);
   button1.mousePressed(function() {
     end = null;
-    sendToConvertor(int(roomNumber.value()))
+    sendToConvertor(int(roomNumber.value()), 'end')
+    //sendConv(int(roomNumber.value()))
   });
 
   button3 = createButton('Submit');
   button3.position(roomNumberStart.x + roomNumberStart.width, 140);
-  
+  button3.mousePressed( function() {
+    start = null;
+    sendToConvertor(int(roomNumberStart.value()), 'start')
+  });
 
   text1 = createElement('h6', 'Enter Room Number');
   text1.position(680, 120);
@@ -75,9 +80,18 @@ function test() {
   sendToConvertor(int(roomNumber.value()))
 }
 
-
-function sendToConvertor(input) {
+function sendConv(input) {
   end = convertor(input);
+}
+
+
+function sendToConvertor(input, destination) {
+  if (destination === 'end') {
+    end = convertor(input);
+  }
+  else if (destination === 'start'){
+    start = convertor(input);
+  }
 }
 
 function pickRoom() {
@@ -122,10 +136,17 @@ function refreshButton() {
 }
 
 function refresh() {
+
+  clickedMousePosition = false;
+
   trueStartCoord = null;
   trueStartNode = null;
+
   start = null;
   end = null;
+
+  roomNumber.value('');
+  roomNumberStart.value('');
 }
 
 
@@ -184,7 +205,7 @@ function convertor(input) {
   else if (input === 'Gym1 (Girls)') {
     return [29, 1];
   }
-  else if (input === 130 || input === 132) {
+  else if (input === 130 || input === 131) {
     return [32, 1];
   }
   else if (input === 'Gym2 (Boys)') {
@@ -203,6 +224,9 @@ function convertor(input) {
     return [39, 1];
   }
   else if (input === 141) {
+    return [40, 1];
+  }
+  else if (input === 143) {
     return [40, 1];
   }
   else if (input === 'Tech Doors South Entrance') {

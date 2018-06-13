@@ -10,6 +10,8 @@ let map1, map2, map3;
 let nodeArray = [];
 let hypArray = [];
 
+let clickedMousePosition = false;
+
 let trueStartCoord = null;
 let trueStartNode = null;
 
@@ -46,8 +48,6 @@ function setup() {
   refreshButton();
 }
 
-
-
 function draw() {
 
   background(255);
@@ -73,7 +73,6 @@ function draw() {
   if (start !== null && end !== null) {
     finishedPath = createFullPath(start, end);
     drawFullPath(finishedPath);
-
   }
 }
 
@@ -142,21 +141,46 @@ function drawFullPath(paths) {
     drawSinglePath(startNodeRoute, startNodeMatrix);
   }
 
-  drawStartLine();
-  drawStartPosition();
-  drawEndPosition();
-
+  if (clickedMousePosition) {
+    drawStartLine();
+    drawStartPosition('mouse');
+    drawEndPosition();
+  }
+  else {
+    drawStartPosition('fixed');
+    drawEndPosition();
+  }
 }
 
-function drawStartPosition() {
+function drawStartPosition(type) {
+  let positions;
   push();
   noStroke();
-  fill(0, 0, 255);
-  ellipse(trueStartCoord[0], trueStartCoord[1], 15, 15);
-  fill(0, 0, 255, 100);
-  ellipse(trueStartCoord[0], trueStartCoord[1], 40, 40)
+  if (type === 'mouse') {
+    fill(0, 0, 255);
+    ellipse(trueStartCoord[0], trueStartCoord[1], 15, 15);
+    fill(0, 0, 255, 100);
+    ellipse(trueStartCoord[0], trueStartCoord[1], 40, 40)
+  }
+  else if (type === 'fixed') {
+
+    if (start[1] === 1) {
+      positions = firstFloorLocations;
+    }
+    else if (start[1] === 2) {
+      positions = secondFloorLocations;
+    }
+    else if (start[1] === 3) {
+      positions = thirdFloorLocations;
+    }
+    fill(0, 0, 255);
+    ellipse(positions[start[0]][0], positions[start[0]][1], 15, 15);
+    fill(0, 0, 255, 100);
+    ellipse(positions[start[0]][0], positions[start[0]][1], 40, 40);
+  }
   pop();
 }
+
 function drawStartLine() {
   push();
   stroke(63, 142, 193);
