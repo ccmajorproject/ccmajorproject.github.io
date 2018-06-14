@@ -25,7 +25,7 @@ function displayAllMenu(x, y) {
 
   textStyle(NORMAL);
   textSize(13);
-  text("Enter Room Number", x, y + 23);
+  text("Room Number", x, y + 23);
   startRoomNumber.position(modX, y + 30);
 
   text("Select Other Rooms", x, y + 90);
@@ -39,7 +39,7 @@ function displayAllMenu(x, y) {
 
   textStyle(NORMAL);
   textSize(13);
-  text("Enter Room Number", x + constantX + 50, y + 23);
+  text("Room Number", x + constantX + 50, y + 23);
   endRoomNumber.position(modX + constantX + 50, y + 30);
 
   text("Select Other Rooms", x + constantX + 50, y + 90);
