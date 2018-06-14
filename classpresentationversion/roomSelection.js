@@ -3,66 +3,73 @@
 // June 4, 2018
 
 
-// function startRoom() {
-//   let array;
-//   if (mouseIsPressed && mouseY > 295 && mouseX > 0 && mouseX < 700 && !clickedMousePosition) {
-//     if (mouseY < 1125) {
-//       array = firstFloorLocations;
-//       start = [nearestNode(array, [mouseX, mouseY]), 1];
-//       trueStartNode = array[start[0]];
-//     }
-//     else if (mouseY < 1640) {
-//       array = secondFloorLocations;
-//       start = [nearestNode(array, [mouseX, mouseY]), 2];
-//       trueStartNode = array[start[0]];
-//     }
-//     else if (mouseY > 1640) {
-//       array = thirdFloorLocations;
-//       start = [nearestNode(array, [mouseX, mouseY]), 3];
-//       trueStartNode = array[start[0]];
-//     }
-//     else {
-//       return
-//     }
-//
-//     trueStartCoord = [mouseX, mouseY];
-//     mouseIsPressed = false;
-//     clickedMousePosition = true;
-//   }
-// }
+function displayAllMenu(x, y) {
 
-function roomInput() {
-  //User types in a room number
-  roomNumber = createInput('');
-  roomNumber.position(660, 140);
+  let modX = x + translateX;
+  let constantX = 250;
 
-  roomNumberStart = createInput('');
-  roomNumberStart.position(400, 140);
+  push();
+  rectMode(CORNER);
 
-  button1 = createButton('Submit');
-  button1.position(roomNumber.x + roomNumber.width, 140);
-  button1.mousePressed(function() {
-    end = null;
-    //mouseClickedPosition = false;
-    sendToConvertor(int(roomNumber.value()), 'end')
-    //sendConv(int(roomNumber.value()))
-  });
+  fill(135,206,250)
+  rect(x-10, y-25, constantX * 2 + 155, y + 55)
+  textAlign(LEFT);
 
-  button3 = createButton('Submit');
-  button3.position(roomNumberStart.x + roomNumberStart.width, 140);
-  button3.mousePressed( function() {
-    start = null;
-    //mouseClickedPosition = false;
-    sendToConvertor(int(roomNumberStart.value()), 'start')
-  });
+  fill(0);
 
-  text1 = createElement('h6', 'Enter Room Number');
-  text1.position(680, 120);
+  //RHS
+  textSize(20);
+  text("Enter Current Location", x, y);
+
+  textSize(13);
+  text("Enter Room Number", x, y + 20);
+  startRoomNumber.position(modX, y + 30);
+
+  text("Select Other Rooms", x, y + 90);
+  otherRoomsStart.position(modX, y + 100);
+
+
+  ///LHS
+  textSize(20);
+  text("Enter Destination", x + constantX, y)
+
+  textSize(13);
+  text("Enter Room Number", x + constantX, y + 20);
+  endRoomNumber.position(modX + constantX, y + 30);
+
+  text("Select Other Rooms", x + constantX, y + 90);
+  otherRoomsEnd.position(modX + constantX, y + 100);
+
+  //other
+  submitButton.position(modX + constantX + 277, y - 10);
+  refreshButton.position(modX + constantX + 277, y + 25);
+
+  displayLegend(modX + 30, y + 80)
+
+  pop();
+
 }
 
-function legend() {
-  let x = 40;
-  let y = 110;
+
+function roomInput() {
+
+  //User types in a room number
+  endRoomNumber = createInput('');
+  startRoomNumber = createInput('');
+
+  submitButton = createButton('Submit');
+
+  submitButton.mousePressed(function() {
+    end = null;
+    start = null;
+    sendToConvertor(int(startRoomNumber.value()), 'start');
+    sendToConvertor(int(endRoomNumber.value()), 'end');
+  });
+
+}
+
+
+function displayLegend(x, y) {
   push();
   rectMode(CENTER);
   textAlign(LEFT);
@@ -75,56 +82,73 @@ function legend() {
   pop();
 }
 
-
-
-function test() {
-  end = null;
-  sendToConvertor(int(roomNumber.value()))
-}
-
-function sendConv(input) {
-  end = convertor(input);
-}
-
-
 function sendToConvertor(input, destination) {
   if (destination === 'end') {
+    otherRoomsEnd.value('--');
     end = convertor(input);
   }
   else if (destination === 'start'){
+    otherRoomsStart.value('--')
     start = convertor(input);
   }
 }
 
 function pickRoom() {
-  text2 = createElement('h6', 'Other Room Options');
-  text2.position(680, 180);
+
+  otherRoomsStart = createSelect();
+  otherRoomsStart.option('--');
+  otherRoomsStart.option('Main Entrance');
+  otherRoomsStart.option('Main Office');
+  otherRoomsStart.option('Washrooms');
+  otherRoomsStart.option('Washrooms (Gender Neutral)');
+  otherRoomsStart.option('Gym 1 (Girls)');
+  otherRoomsStart.option('Gym 2 (Boys)');
+  otherRoomsStart.option('Library');
+  otherRoomsStart.option('Cafeteria');
+  otherRoomsStart.option('Auditorium');
+  otherRoomsStart.option('Student Services');
+  otherRoomsStart.option('Bleachers');
+  otherRoomsStart.option('SRC Room');
+  otherRoomsStart.option('Wrestling Room');
+  otherRoomsStart.option('Wrestling Room Entrance');
+  otherRoomsStart.option('Dance Studio');
+  otherRoomsStart.option('Courtyard');
+  otherRoomsStart.option('Tech Doors North Entrance');
+  otherRoomsStart.option('Tech Doors South Entrance');
+
+  otherRoomsStart.changed(function() {
+    startRoomNumber.value('');
+    sendToConvertor(otherRoomsStart.value(), 'start')
+
+  });
 
   //User selects a room
-  otherRooms = createSelect();
-  otherRooms.position(660, 200);
-  otherRooms.option('--');
-  otherRooms.option('Main Entrance');
-  otherRooms.option('Main Office');
-  otherRooms.option('Washrooms');
-  otherRooms.option('Washrooms (Gender Neutral)');
-  otherRooms.option('Gym 1 (Girls)');
-  otherRooms.option('Gym 2 (Boys)');
-  otherRooms.option('Library');
-  otherRooms.option('Cafeteria');
-  otherRooms.option('Auditorium');
-  otherRooms.option('Student Services');
-  otherRooms.option('Bleachers');
-  otherRooms.option('SRC Room');
-  otherRooms.option('Wrestling Room');
-  otherRooms.option('Wrestling Room Entrance');
-  otherRooms.option('Dance Studio');
-  otherRooms.option('Courtyard');
-  otherRooms.option('Tech Doors North Entrance');
-  otherRooms.option('Tech Doors South Entrance');
-  otherRooms.changed(function() {
-    end = null;
-    sendToConvertor(otherRooms.value())
+  otherRoomsEnd = createSelect();
+  otherRoomsEnd.position(660, 200);
+  otherRoomsEnd.option('--');
+  otherRoomsEnd.option('Main Entrance');
+  otherRoomsEnd.option('Main Office');
+  otherRoomsEnd.option('Washrooms');
+  otherRoomsEnd.option('Washrooms (Gender Neutral)');
+  otherRoomsEnd.option('Gym 1 (Girls)');
+  otherRoomsEnd.option('Gym 2 (Boys)');
+  otherRoomsEnd.option('Library');
+  otherRoomsEnd.option('Cafeteria');
+  otherRoomsEnd.option('Auditorium');
+  otherRoomsEnd.option('Student Services');
+  otherRoomsEnd.option('Bleachers');
+  otherRoomsEnd.option('SRC Room');
+  otherRoomsEnd.option('Wrestling Room');
+  otherRoomsEnd.option('Wrestling Room Entrance');
+  otherRoomsEnd.option('Dance Studio');
+  otherRoomsEnd.option('Courtyard');
+  otherRoomsEnd.option('Tech Doors North Entrance');
+  otherRoomsEnd.option('Tech Doors South Entrance');
+
+  otherRoomsEnd.changed(function() {
+
+    endRoomNumber.value('');
+    sendToConvertor(otherRoomsEnd.value(), 'end')
 
   });
 }
@@ -132,9 +156,8 @@ function pickRoom() {
 
 
 function refreshButton() {
-  button2 = createButton('Refresh');
-  button2.position(roomNumber.x + roomNumber.width + 110, 120);
-  button2.mousePressed(refresh);
+  refreshButton = createButton('Refresh');
+  refreshButton.mousePressed(refresh);
 }
 
 function refresh() {
@@ -147,13 +170,13 @@ function refresh() {
   start = null;
   end = null;
 
-  roomNumber.value('');
-  roomNumberStart.value('');
+  endRoomNumber.value('');
+  startRoomNumber.value('');
 }
 
 
 function convertor(input) {
-  input = input || otherRooms.value();
+  input = input || otherRoomsEnd.value();
 
   //First Floor
   if (input === 'Main Entrance') {

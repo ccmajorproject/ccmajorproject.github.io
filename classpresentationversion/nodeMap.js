@@ -1,5 +1,4 @@
 
-
 let STAIRS = 0;
 let _ = Infinity;
 

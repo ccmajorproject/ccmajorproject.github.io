@@ -3,6 +3,7 @@
 //CS30, Period 5, Mr. D. Schellenberg
 //June 15, 2018
 
+let translateX;
 
 //Global Variables
 let finishedPath;
@@ -10,15 +11,10 @@ let map1, map2, map3;
 let nodeArray = [];
 let hypArray = [];
 
-//let clickedMousePosition = false;
-
-let trueStartCoord = null;
-let trueStartNode = null;
-
 let firstFloorPath, secondFloorPath, thirdFloorPath;
 
-let otherRooms;
-let roomNumber,roomNumberStart, button1, button2, button3,  text1, text2, text3, room;
+let otherRoomsStart, otherRoomsEnd;
+let endRoomNumber, startRoomNumber, submitButton, refreshButon, text1, text2, text3, room;
 
 let start = null;
 let end = null;
@@ -32,54 +28,41 @@ function preload() {
   map3 = loadImage("images/floor3.png");
 }
 
-
-
 function setup() {
   //makes the canvas a variable so that it behaves like an object and is easier to or shift.
   let cnv = createCanvas(800, 2000);
-  let x = (windowWidth - width) / 2;
-  cnv.position(x, 0);
+  translateX = (windowWidth - width) / 2;
+  cnv.position(translateX, 0);
 
-  textAlign(CENTER);
-
-  //input and drop down bar for UI.
-  roomInput();
+  //Input and drop down bar for UI.
   pickRoom();
+  roomInput();
   refreshButton();
+
 }
 
 function draw() {
-
-  background(255);
+  background(169, 169, 169);
 
   //alligning maps.
-  image(map1, 0, 300, map1.height/2.5, map1.width/2.5);
-  image(map2, 0, map1.width/3 + 550, map2.height/1.7, map2.width/4.5);
+  image(map1, 40 , 300, map1.height/2.5, map1.width/2.5);
+  image(map2, 40, map1.width/3 + 550, map2.height/1.7, map2.width/4.5);
   image(map3, width/2 - 250, map1.width/3 + map2.width/4.5 + 650, map3.height/0.7, map3.width/4.5);
 
+  //Draw Menu and text
   screenText();
+  displayAllMenu(80, 100);
 
-  displayNodes(secondFloorLocations);
-  displayNodes(firstFloorLocations);
-  displayNodes(thirdFloorLocations);
-
-  startRoom();
-  legend();
-  //Draws the true starting position of the user
-  if (trueStartCoord !== null && trueStartNode !== null) {
-    drawStartPosition();
-  }
-  //If both the start and the end node are defined, then it will draw the path
+  //Draws Path
   if (start !== null && end !== null) {
     finishedPath = createFullPath(start, end);
     drawFullPath(finishedPath);
   }
 }
 
-
-
 function screenText() {
   push();
+
   textStyle(BOLD);
   textSize(50);
   textAlign(CENTER);
@@ -92,29 +75,11 @@ function screenText() {
   text("Second Floor", width/2 , 1150);
   text("Third Floor", width/2 , 1680);
 
-  fill(0,0,255);
-  textAlign(CORNERS);
-  text("Destination", 487, 100);
-  text("Starting Location", 260, 100);
-
   pop();
 
 }
 
-function displayNodes(array) {
-  let count = -1;
-  for (let item of array) {
-    count += 1;
-    push();
-    strokeWeight(5);
-    point(item[0], item[1]);
-    fill(255, 0, 0);
-    textSize(11);
-    text(""+count+"",item[0],item[1]);
-    pop();
-  }
-}
-
+//Drawing Functions
 function drawSinglePath(pathArray, nodeLocations) {
   for (let i = 0; i < pathArray.length - 1; i++) {
     push();
@@ -141,51 +106,27 @@ function drawFullPath(paths) {
     drawSinglePath(startNodeRoute, startNodeMatrix);
   }
 
-  if (clickedMousePosition) {
-    drawStartLine();
-    drawStartPosition('mouse');
-    drawEndPosition();
-  }
-  else {
-    drawStartPosition('fixed');
-    drawEndPosition();
-  }
+  drawStartPosition();
+  drawEndPosition();
 }
 
-function drawStartPosition(type) {
+function drawStartPosition() {
   let positions;
   push();
   noStroke();
-  if (type === 'mouse') {
-    fill(0, 0, 255);
-    ellipse(trueStartCoord[0], trueStartCoord[1], 15, 15);
-    fill(0, 0, 255, 100);
-    ellipse(trueStartCoord[0], trueStartCoord[1], 40, 40)
+  if (start[1] === 1) {
+    positions = firstFloorLocations;
   }
-  else if (type === 'fixed') {
-
-    if (start[1] === 1) {
-      positions = firstFloorLocations;
-    }
-    else if (start[1] === 2) {
-      positions = secondFloorLocations;
-    }
-    else if (start[1] === 3) {
-      positions = thirdFloorLocations;
-    }
-    fill(0, 0, 255);
-    ellipse(positions[start[0]][0], positions[start[0]][1], 15, 15);
-    fill(0, 0, 255, 100);
-    ellipse(positions[start[0]][0], positions[start[0]][1], 40, 40);
+  else if (start[1] === 2) {
+    positions = secondFloorLocations;
   }
-  pop();
-}
-
-function drawStartLine() {
-  push();
-  stroke(63, 142, 193);
-  strokeWeight(4);
-  line(trueStartCoord[0], trueStartCoord[1], trueStartNode[0], trueStartNode[1])
+  else if (start[1] === 3) {
+    positions = thirdFloorLocations;
+  }
+  fill(0, 0, 255);
+  ellipse(positions[start[0]][0], positions[start[0]][1], 15, 15);
+  fill(0, 0, 255, 100);
+  ellipse(positions[start[0]][0], positions[start[0]][1], 40, 40);
   pop();
 }
 function drawEndPosition() {
@@ -206,6 +147,66 @@ function drawEndPosition() {
   fill(0, 255, 0, 100);
   ellipse(positions[end[0]][0], positions[end[0]][1], 40, 40);
   pop();
+}
+
+//Pathfinding Algorithm
+function shortestPath(matrix, startVertex) {
+
+  //Creates three arrays with length equal to matrix
+  let done = new Array(matrix.length);
+  let pathLengths = new Array(matrix.length);
+  let predecessors = new Array(matrix.length);
+
+  done[startVertex] = true;
+  //Loops through matrix[startVertex] and writes the values into the pathLengths array
+  for (let i = 0; i < matrix.length; i++) {
+    pathLengths[i] = matrix[startVertex][i];
+    if (matrix[startVertex][i] !== Infinity) {
+      predecessors[i] = startVertex;
+    }
+  }
+
+  //Length from node to itself is 0;
+  pathLengths[startVertex] = 0;
+  for (let i = 0; i < matrix.length - 1; i++) {
+    let closest = -1;
+    let closestDistance = Infinity;
+    for (let j = 0; j < matrix.length; j++) {
+      if (!done[j] && pathLengths[j] < closestDistance) {
+        closestDistance = pathLengths[j];
+        closest = j;
+      }
+    }
+
+    done[closest] = true;
+
+    for (let j = 0; j < matrix.length; j++) {
+      if (!done[j]) {
+        let possiblyCloserDistance = pathLengths[closest] + matrix[closest][j];
+        if (possiblyCloserDistance < pathLengths[j]) {
+          pathLengths[j] = possiblyCloserDistance;
+          predecessors[j] = closest;
+        }
+      }
+    }
+  }
+  return { "startVertex": startVertex,
+    "distances": pathLengths,
+    "tree": predecessors };
+}
+function constructPath(object, endVertex) {
+  let path = [];
+  do {
+    path.unshift(endVertex);
+    endVertex = object.tree[endVertex];
+  }
+  while (endVertex !== object.startVertex);
+
+  path.unshift(object.startVertex);
+  return path;
+}
+function findPath(matrix, startNode, endNode) {
+  return constructPath(shortestPath(matrix, startNode), endNode);
 }
 
 function createFullPath(startNode, endNode) { //startNode and endNode are arrays with [nodeNumber, floor] -> stairs are 0
@@ -307,66 +308,6 @@ function createFullPath(startNode, endNode) { //startNode and endNode are arrays
   }
 }
 
-//Pathfinding Algorithm
-function shortestPath(matrix, startVertex) {
-
-  //Creates three arrays with length equal to matrix
-  let done = new Array(matrix.length);
-  let pathLengths = new Array(matrix.length);
-  let predecessors = new Array(matrix.length);
-
-  done[startVertex] = true;
-  //Loops through matrix[startVertex] and writes the values into the pathLengths array
-  for (let i = 0; i < matrix.length; i++) {
-    pathLengths[i] = matrix[startVertex][i];
-    if (matrix[startVertex][i] !== Infinity) {
-      predecessors[i] = startVertex;
-    }
-  }
-
-  //Length from node to itself is 0;
-  pathLengths[startVertex] = 0;
-  for (let i = 0; i < matrix.length - 1; i++) {
-    let closest = -1;
-    let closestDistance = Infinity;
-    for (let j = 0; j < matrix.length; j++) {
-      if (!done[j] && pathLengths[j] < closestDistance) {
-        closestDistance = pathLengths[j];
-        closest = j;
-      }
-    }
-
-    done[closest] = true;
-
-    for (let j = 0; j < matrix.length; j++) {
-      if (!done[j]) {
-        let possiblyCloserDistance = pathLengths[closest] + matrix[closest][j];
-        if (possiblyCloserDistance < pathLengths[j]) {
-          pathLengths[j] = possiblyCloserDistance;
-          predecessors[j] = closest;
-        }
-      }
-    }
-  }
-  return { "startVertex": startVertex,
-    "distances": pathLengths,
-    "tree": predecessors };
-}
-function constructPath(object, endVertex) {
-  let path = [];
-  do {
-    path.unshift(endVertex);
-    endVertex = object.tree[endVertex];
-  }
-  while (endVertex !== object.startVertex);
-
-  path.unshift(object.startVertex);
-  return path;
-}
-function findPath(matrix, startNode, endNode) {
-  return constructPath(shortestPath(matrix, startNode), endNode);
-}
-
 //Finds the nearest node in the defined matrix according to the X and Y Position
 function nearestNode(array, coordinate) {
   for (let i = 0; i < array.length; i++) {
@@ -382,4 +323,46 @@ function nearestNode(array, coordinate) {
   hypArray = [];
 
   return position;
+}
+
+//Not In Use
+function displayNodes(array) {
+  let count = -1;
+  for (let item of array) {
+    count += 1;
+    push();
+    strokeWeight(5);
+    point(item[0], item[1]);
+    fill(255, 0, 0);
+    textSize(11);
+    text(""+count+"",item[0],item[1]);
+    pop();
+  }
+}
+function startRoom() {
+  let array;
+  if (mouseIsPressed && mouseY > 295 && mouseX > 0 && mouseX < 700 && !clickedMousePosition) {
+    if (mouseY < 1125) {
+      array = firstFloorLocations;
+      start = [nearestNode(array, [mouseX, mouseY]), 1];
+      trueStartNode = array[start[0]];
+    }
+    else if (mouseY < 1640) {
+      array = secondFloorLocations;
+      start = [nearestNode(array, [mouseX, mouseY]), 2];
+      trueStartNode = array[start[0]];
+    }
+    else if (mouseY > 1640) {
+      array = thirdFloorLocations;
+      start = [nearestNode(array, [mouseX, mouseY]), 3];
+      trueStartNode = array[start[0]];
+    }
+    else {
+      return
+    }
+
+    trueStartCoord = [mouseX, mouseY];
+    mouseIsPressed = false;
+    clickedMousePosition = true;
+  }
 }
