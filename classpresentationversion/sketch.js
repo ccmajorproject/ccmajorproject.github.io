@@ -45,8 +45,8 @@ function draw() {
   background(169, 169, 169);
 
   //alligning maps.
-  image(map1, 40 , 300, map1.height/2.5, map1.width/2.5);
-  image(map2, 40, map1.width/3 + 550, map2.height/1.7, map2.width/4.5);
+  image(map1, 0, 300, map1.height/2.5, map1.width/2.5);
+  image(map2, 0, map1.width/3 + 550, map2.height/1.7, map2.width/4.5);
   image(map3, width/2 - 250, map1.width/3 + map2.width/4.5 + 650, map3.height/0.7, map3.width/4.5);
 
   //Draw Menu and text
