@@ -46,7 +46,7 @@ function displayAllMenu(x, y) {
   otherRoomsEnd.position(modX + constantX + 50, y + 100);
 
   //other
-  submitButton.position(modX + constantX + 360, y - 10);
+  //submitButton.position(modX + constantX + 360, y - 10);
   refreshButton.position(modX + constantX + 360, y + 25);
 
   pop();
@@ -66,36 +66,34 @@ function displayAllMenu(x, y) {
 
 }
 
-
 function roomInput() {
 
   //User types in a room number
   endRoomNumber = createInput('');
   startRoomNumber = createInput('');
 
-  submitButton = createButton('Submit');
+  //submitButton = createButton('Submit');
 
-  submitButton.mousePressed(function() {
-    end = null;
-    start = null;
-    sendToConvertor(int(startRoomNumber.value()), 'start');
-    sendToConvertor(int(endRoomNumber.value()), 'end');
-  });
+  // submitButton.mousePressed(function() {
+  //   end = null;
+  //   start = null;
+  //   sendToConvertor(int(startRoomNumber.value()), 'start');
+  //   sendToConvertor(int(endRoomNumber.value()), 'end');
+  // });
 
 }
-
-
 
 function sendToConvertor(input, destination) {
-  if (destination === 'end') {
-    end = convertor(input);
-  }
-  else if (destination === 'start'){
-    start = convertor(input);
+
+  if (input !== '' && input !== '--' ) {
+    if (destination === 'end') {
+      end = convertor(input);
+    }
+    else if (destination === 'start'){
+      start = convertor(input);
+    }
   }
 }
-
-
 
 function pickRoom() {
   //user selects a room.
@@ -121,8 +119,8 @@ function pickRoom() {
 
   otherRoomsStart.changed(function() {
     startRoomNumber.value('');
+    start = null;
     sendToConvertor(otherRoomsStart.value(), 'start')
-
   });
 
 
@@ -149,10 +147,9 @@ function pickRoom() {
   otherRoomsEnd.option('Tech Doors South Entrance');
 
   otherRoomsEnd.changed(function() {
-
     endRoomNumber.value('');
+    end = null;
     sendToConvertor(otherRoomsEnd.value(), 'end')
-
   });
 }
 
@@ -161,7 +158,6 @@ function refreshButton() {
   refreshButton = createButton('Refresh');
   refreshButton.mousePressed(refresh);
 }
-
 
 function refresh() {
 
@@ -181,7 +177,7 @@ function refresh() {
 
 
 function convertor(input) {
-  input = input || otherRoomsEnd.value();
+  //input = input || otherRoomsEnd.value();
 
   //First Floor
   if (input === 'Main Entrance') {

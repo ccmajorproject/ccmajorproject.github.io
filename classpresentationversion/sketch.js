@@ -19,15 +19,12 @@ let endRoomNumber, startRoomNumber, submitButton, refreshButon, text1, text2, te
 let start = null;
 let end = null;
 
-
-
 //loads all of the maps used in background.
 function preload() {
   map1 = loadImage("images/floor1.png");
   map2 = loadImage("images/floor2.png");
   map3 = loadImage("images/floor3.png");
 }
-
 function setup() {
   //makes the canvas a variable so that it behaves like an object and is easier to or shift.
   let cnv = createCanvas(800, 2000);
@@ -51,6 +48,10 @@ function draw() {
   //Draw Menu and text
   screenText();
   displayAllMenu(20, 100);
+
+
+  sendToConvertor(int(startRoomNumber.value()), 'start');
+  sendToConvertor(int(endRoomNumber.value()), 'end');
 
   //Draws Path
   if (start !== null && end !== null) {
