@@ -42,7 +42,6 @@ function setup() {
 }
 
 function draw() {
-  background(169, 169, 169);
 
   //alligning maps.
   image(map1, 0, 300, map1.height/2.5, map1.width/2.5);
@@ -339,6 +338,8 @@ function displayNodes(array) {
     pop();
   }
 }
+
+
 function startRoom() {
   let array;
   if (mouseIsPressed && mouseY > 295 && mouseX > 0 && mouseX < 700 && !clickedMousePosition) {

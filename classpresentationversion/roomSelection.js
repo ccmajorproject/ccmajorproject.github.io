@@ -11,30 +11,35 @@ function displayAllMenu(x, y) {
   push();
   rectMode(CORNER);
 
-  fill(135,206,250)
+  noStroke();
+  fill(148, 186, 247);
   rect(x-10, y-25, constantX * 2 + 155, y + 55)
   textAlign(LEFT);
 
   fill(0);
 
-  //RHS
+  //LHS
+  textStyle(BOLD);
   textSize(20);
   text("Enter Current Location", x, y);
 
+  textStyle(NORMAL);
   textSize(13);
-  text("Enter Room Number", x, y + 20);
+  text("Enter Room Number", x, y + 23);
   startRoomNumber.position(modX, y + 30);
 
   text("Select Other Rooms", x, y + 90);
   otherRoomsStart.position(modX, y + 100);
 
 
-  ///LHS
+  ///RHS
+  textStyle(BOLD);
   textSize(20);
   text("Enter Destination", x + constantX, y)
 
+  textStyle(NORMAL);
   textSize(13);
-  text("Enter Room Number", x + constantX, y + 20);
+  text("Enter Room Number", x + constantX, y + 23);
   endRoomNumber.position(modX + constantX, y + 30);
 
   text("Select Other Rooms", x + constantX, y + 90);
@@ -44,8 +49,19 @@ function displayAllMenu(x, y) {
   submitButton.position(modX + constantX + 277, y - 10);
   refreshButton.position(modX + constantX + 277, y + 25);
 
-  displayLegend(modX + 30, y + 80)
+  pop();
 
+  // displayLegend(modX + 30, y + 80)
+
+  push();
+  rectMode(CENTER);
+
+  text('= Washrooms', modX + 310, y + 80);
+  text('= Stairs', modX + 310, y + 110);
+  fill(61, 255, 161);
+  rect(modX + 290, y + 75, 20, 20);
+  fill(237, 206, 83);
+  rect(modX + 290, y + 105, 20, 20);
   pop();
 
 }
@@ -69,18 +85,6 @@ function roomInput() {
 }
 
 
-function displayLegend(x, y) {
-  push();
-  rectMode(CENTER);
-  textAlign(LEFT);
-  text('= Washrooms', x, y);
-  text('= Stairs', x, y + 30);
-  fill(61, 255, 161);
-  rect(x - 20, y - 5, 20, 20);
-  fill(237, 206, 83);
-  rect(x - 20, y + 25, 20, 20);
-  pop();
-}
 
 function sendToConvertor(input, destination) {
   if (destination === 'end') {
@@ -93,13 +97,14 @@ function sendToConvertor(input, destination) {
   }
 }
 
-function pickRoom() {
 
+
+function pickRoom() {
+  //user selects a room.
   otherRoomsStart = createSelect();
   otherRoomsStart.option('--');
   otherRoomsStart.option('Main Entrance');
   otherRoomsStart.option('Main Office');
-  otherRoomsStart.option('Washrooms');
   otherRoomsStart.option('Washrooms (Gender Neutral)');
   otherRoomsStart.option('Gym 1 (Girls)');
   otherRoomsStart.option('Gym 2 (Boys)');
@@ -122,7 +127,7 @@ function pickRoom() {
 
   });
 
-  //User selects a room
+
   otherRoomsEnd = createSelect();
   otherRoomsEnd.position(660, 200);
   otherRoomsEnd.option('--');
@@ -154,11 +159,11 @@ function pickRoom() {
 }
 
 
-
 function refreshButton() {
   refreshButton = createButton('Refresh');
   refreshButton.mousePressed(refresh);
 }
+
 
 function refresh() {
 
