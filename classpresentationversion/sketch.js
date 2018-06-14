@@ -70,7 +70,7 @@ function screenText() {
   text("Walter Murray Collegiate Institute", width/2, 50);
 
   textSize(25);
-  text("First Floor", width/2 , 270);
+  text("First Floor", width/2 , 280);
   text("Second Floor", width/2 , 1150);
   text("Third Floor", width/2 , 1680);
 
