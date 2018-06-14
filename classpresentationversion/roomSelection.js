@@ -175,6 +175,8 @@ function refresh() {
 
   endRoomNumber.value('');
   startRoomNumber.value('');
+  otherRoomsStart.value('--');
+  otherRoomsEnd.value('--');
 }
 
 
