@@ -50,7 +50,7 @@ function draw() {
 
   //Draw Menu and text
   screenText();
-  displayAllMenu(80, 100);
+  displayAllMenu(20, 100);
 
   //Draws Path
   if (start !== null && end !== null) {

@@ -6,14 +6,14 @@
 function displayAllMenu(x, y) {
 
   let modX = x + translateX;
-  let constantX = 250;
+  let constantX = 300;
 
   push();
   rectMode(CORNER);
 
   noStroke();
   fill(148, 186, 247);
-  rect(x-10, y-25, constantX * 2 + 155, y + 55)
+  rect(x-110, y-25, constantX * 2 + 325, y + 55)
   textAlign(LEFT);
 
   fill(0);
@@ -35,19 +35,19 @@ function displayAllMenu(x, y) {
   ///RHS
   textStyle(BOLD);
   textSize(20);
-  text("Enter Destination", x + constantX, y)
+  text("Enter Destination", x + constantX + 50, y)
 
   textStyle(NORMAL);
   textSize(13);
-  text("Enter Room Number", x + constantX, y + 23);
-  endRoomNumber.position(modX + constantX, y + 30);
+  text("Enter Room Number", x + constantX + 50, y + 23);
+  endRoomNumber.position(modX + constantX + 50, y + 30);
 
-  text("Select Other Rooms", x + constantX, y + 90);
-  otherRoomsEnd.position(modX + constantX, y + 100);
+  text("Select Other Rooms", x + constantX + 50, y + 90);
+  otherRoomsEnd.position(modX + constantX + 50, y + 100);
 
   //other
-  submitButton.position(modX + constantX + 277, y - 10);
-  refreshButton.position(modX + constantX + 277, y + 25);
+  submitButton.position(modX + constantX + 360, y - 10);
+  refreshButton.position(modX + constantX + 360, y + 25);
 
   pop();
 
@@ -56,12 +56,12 @@ function displayAllMenu(x, y) {
   push();
   rectMode(CENTER);
 
-  text('= Washrooms', modX + 310, y + 80);
-  text('= Stairs', modX + 310, y + 110);
+  text('= Washrooms', modX + constantX + 150, y + 85);
+  text('= Stairs', modX + constantX + 150, y + 115);
   fill(61, 255, 161);
-  rect(modX + 290, y + 75, 20, 20);
+  rect(modX + constantX + 125, y + 80, 20, 20);
   fill(237, 206, 83);
-  rect(modX + 290, y + 105, 20, 20);
+  rect(modX + constantX + 125, y + 110, 20, 20);
   pop();
 
 }
@@ -88,11 +88,9 @@ function roomInput() {
 
 function sendToConvertor(input, destination) {
   if (destination === 'end') {
-    otherRoomsEnd.value('--');
     end = convertor(input);
   }
   else if (destination === 'start'){
-    otherRoomsStart.value('--')
     start = convertor(input);
   }
 }
