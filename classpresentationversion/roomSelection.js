@@ -12,12 +12,16 @@ function displayAllMenu(x, y) {
   rectMode(CORNER);
 
   noStroke();
+
   fill(148, 186, 247);
-  rect(x-110, y-25, constantX * 2 + 325, y + 55)
+  rect(x-110, y-25, constantX * 2 + 325, y + 65)
   textAlign(LEFT);
 
-  fill(0);
+  fill(130, 130, 155);
+  rect(x - 10, y + 25 + 5, modX + constantX + 80, 40)
+  rect(x - 10, y + 25 + 5 + 63, modX + constantX + 40, 40)
 
+  fill(0);
   //LHS
   textStyle(BOLD);
   textSize(20);
@@ -26,7 +30,7 @@ function displayAllMenu(x, y) {
   textStyle(NORMAL);
   textSize(13);
   text("Room Number", x, y + 23);
-  startRoomNumber.position(modX, y + 30);
+  startRoomNumber.position(modX, y + 30 + 5);
 
   text("Select Other Rooms", x, y + 90);
   otherRoomsStart.position(modX, y + 100);
@@ -40,21 +44,20 @@ function displayAllMenu(x, y) {
   textStyle(NORMAL);
   textSize(13);
   text("Room Number", x + constantX + 50, y + 23);
-  endRoomNumber.position(modX + constantX + 50, y + 30);
+  endRoomNumber.position(modX + constantX + 50, y + 30 + 5);
 
   text("Select Other Rooms", x + constantX + 50, y + 90);
   otherRoomsEnd.position(modX + constantX + 50, y + 100);
 
   //other
   //submitButton.position(modX + constantX + 360, y - 10);
-  refreshButton.position(modX + constantX + 360, y + 25);
+  refreshButton.position(modX + constantX + 250, y + 30 + 5);
 
   pop();
 
   // displayLegend(modX + 30, y + 80)
   push();
   rectMode(CENTER);
-
   text('= Washrooms', modX + constantX + 150, y + 85);
   text('= Stairs', modX + constantX + 150, y + 115);
   fill(61, 255, 161);
@@ -66,46 +69,11 @@ function displayAllMenu(x, y) {
 }
 
 function roomInput() {
-
   //User types in a room number
   endRoomNumber = createInput('');
   startRoomNumber = createInput('');
-
 }
 
-function sendToConvertor(input, destination, type) {
-
-  if (destination === 'end') {
-    end = convertor(input);
-    if (type === 'input') {
-      otherRoomsEnd.value('--')
-    }
-    else if (type === 'dropDown') {
-      endRoomNumber.value('')
-    }
-  }
-  else if (destination === 'start'){
-    start = convertor(input);
-    if (type === 'input') {
-      otherRoomsStart.value('--')
-    }
-    else if (type === 'dropDown') {
-      startRoomNumber.value('')
-    }
-  }
-}
-
-function sendToConvertor(input, destination) {
-
-  if (input !== '' || input !== '--' ) {
-    if (destination === 'end') {
-      end = convertor(input);
-    }
-    else if (destination === 'start'){
-      start = convertor(input);
-    }
-  }
-}
 
 function pickRoom() {
   //user selects a room.
@@ -131,8 +99,7 @@ function pickRoom() {
 
   otherRoomsStart.changed(function() {
     startRoomNumber.value('');
-    start = null;
-    sendToConvertor(otherRoomsStart.value(), 'start', 'dropDown')
+    start = convertor(otherRoomsStart.value());
   });
 
 
@@ -160,8 +127,7 @@ function pickRoom() {
 
   otherRoomsEnd.changed(function() {
     endRoomNumber.value('');
-    end = null;
-    sendToConvertor(otherRoomsEnd.value(), 'end', 'dropDown')
+    end = convertor(otherRoomsEnd.value());
   });
 }
 
@@ -330,7 +296,6 @@ function convertor(input) {
     return [29, 2];
   }
 
-
   //Third Floor
   else if (input === 301) {
     return [1, 3];
@@ -350,7 +315,8 @@ function convertor(input) {
   else if (input === 309 || input === 310) {
     return [6, 3];
   }
+
   else {
-    return start;
+    return null;
   }
 }

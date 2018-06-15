@@ -50,14 +50,21 @@ function draw() {
   displayAllMenu(20, 100);
 
 
-  sendToConvertor(int(startRoomNumber.value()), 'start', 'input');
-  sendToConvertor(int(endRoomNumber.value()), 'end', 'input');
+  if (start === null) {
+    start =convertor(int(startRoomNumber.value()));
+  }
+
+  if (end === null) {
+    end = convertor(int(endRoomNumber.value()));
+  }
+
 
   //Draws Path
   if (start !== null && end !== null) {
     finishedPath = createFullPath(start, end);
     drawFullPath(finishedPath);
   }
+
   displayNodes(firstFloorLocations);
 }
 
@@ -227,6 +234,8 @@ function createFullPath(startNode, endNode) { //startNode and endNode are arrays
   let startNodeRoutes = [];
   let endNodeRoutes = [];
 
+  console.log(start);
+  console.log(end);
   if (startNode[1] !== endNode[1]) { //Other Floor Path
 
     floors = 2;
