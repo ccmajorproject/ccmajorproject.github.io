@@ -52,7 +52,6 @@ function displayAllMenu(x, y) {
   pop();
 
   // displayLegend(modX + 30, y + 80)
-
   push();
   rectMode(CENTER);
 
@@ -72,20 +71,33 @@ function roomInput() {
   endRoomNumber = createInput('');
   startRoomNumber = createInput('');
 
-  //submitButton = createButton('Submit');
+}
 
-  // submitButton.mousePressed(function() {
-  //   end = null;
-  //   start = null;
-  //   sendToConvertor(int(startRoomNumber.value()), 'start');
-  //   sendToConvertor(int(endRoomNumber.value()), 'end');
-  // });
+function sendToConvertor(input, destination, type) {
 
+  if (destination === 'end') {
+    end = convertor(input);
+    if (type === 'input') {
+      otherRoomsEnd.value('--')
+    }
+    else if (type === 'dropDown') {
+      endRoomNumber.value('')
+    }
+  }
+  else if (destination === 'start'){
+    start = convertor(input);
+    if (type === 'input') {
+      otherRoomsStart.value('--')
+    }
+    else if (type === 'dropDown') {
+      startRoomNumber.value('')
+    }
+  }
 }
 
 function sendToConvertor(input, destination) {
 
-  if (input !== '' && input !== '--' ) {
+  if (input !== '' || input !== '--' ) {
     if (destination === 'end') {
       end = convertor(input);
     }
@@ -120,7 +132,7 @@ function pickRoom() {
   otherRoomsStart.changed(function() {
     startRoomNumber.value('');
     start = null;
-    sendToConvertor(otherRoomsStart.value(), 'start')
+    sendToConvertor(otherRoomsStart.value(), 'start', 'dropDown')
   });
 
 
@@ -149,10 +161,9 @@ function pickRoom() {
   otherRoomsEnd.changed(function() {
     endRoomNumber.value('');
     end = null;
-    sendToConvertor(otherRoomsEnd.value(), 'end')
+    sendToConvertor(otherRoomsEnd.value(), 'end', 'dropDown')
   });
 }
-
 
 function refreshButton() {
   refreshButton = createButton('Refresh');
@@ -161,11 +172,6 @@ function refreshButton() {
 
 function refresh() {
 
-  clickedMousePosition = false;
-
-  trueStartCoord = null;
-  trueStartNode = null;
-
   start = null;
   end = null;
 
@@ -173,8 +179,8 @@ function refresh() {
   startRoomNumber.value('');
   otherRoomsStart.value('--');
   otherRoomsEnd.value('--');
-}
 
+}
 
 function convertor(input) {
   //input = input || otherRoomsEnd.value();
@@ -237,7 +243,7 @@ function convertor(input) {
   else if (input === 'Gym2 (Boys)') {
     return [35, 1];
   }
-  else if (input === 132 || input === 133 || input === 134) {
+  else if (input === 132 || input === 133 || input === 134 || input === 136) {
     return [36, 1];
   }
   else if (input === 'Tech Doors North Entrance') {
@@ -255,6 +261,9 @@ function convertor(input) {
   else if (input === 143) {
     return [40, 1];
   }
+  else if (input === 144) {
+    return [48, 1];
+  }
   else if (input === 'Tech Doors South Entrance') {
     return [42, 1];
   }
@@ -267,7 +276,6 @@ function convertor(input) {
   else if (input === 'Wrestling Room Entrance') {
     return [45, 1];
   }
-
 
   //Second Floor
   else if (input === 205 || input === 207 || input === 208 || input === 'Washrooms3') {

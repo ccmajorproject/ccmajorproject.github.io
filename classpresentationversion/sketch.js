@@ -32,8 +32,8 @@ function setup() {
   cnv.position(translateX, 0);
 
   //Input and drop down bar for UI.
-  pickRoom();
   roomInput();
+  pickRoom();
   refreshButton();
 
 }
@@ -50,14 +50,15 @@ function draw() {
   displayAllMenu(20, 100);
 
 
-  sendToConvertor(int(startRoomNumber.value()), 'start');
-  sendToConvertor(int(endRoomNumber.value()), 'end');
+  sendToConvertor(int(startRoomNumber.value()), 'start', 'input');
+  sendToConvertor(int(endRoomNumber.value()), 'end', 'input');
 
   //Draws Path
   if (start !== null && end !== null) {
     finishedPath = createFullPath(start, end);
     drawFullPath(finishedPath);
   }
+  displayNodes(firstFloorLocations);
 }
 
 function screenText() {
