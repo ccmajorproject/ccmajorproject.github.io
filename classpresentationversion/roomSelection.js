@@ -227,6 +227,7 @@ function convertor(input) {
   else if (input === 143) {
     return [40, 1];
   }
+  
   else if (input === 144) {
     return [48, 1];
   }

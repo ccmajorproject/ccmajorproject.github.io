@@ -3,23 +3,27 @@
 //CS30, Period 5, Mr. D. Schellenberg
 //June 15, 2018
 
-let translateX;
+//Images
+let map1, map2, map3;
 
 //Global Variables
 let finishedPath;
-let map1, map2, map3;
+let translateX;
+
 let nodeArray = [];
 let hypArray = [];
 
+//Paths
 let firstFloorPath, secondFloorPath, thirdFloorPath;
-
-let otherRoomsStart, otherRoomsEnd;
-let endRoomNumber, startRoomNumber, submitButton, refreshButon, text1, text2, text3, room;
+let otherRoomsStart, otherRoomsEnd, endRoomNumber, startRoomNumber;
 
 let start = null;
 let end = null;
 
-//loads all of the maps used in background.
+//Buttons
+let refreshButon
+
+//Loads all of the maps used in background.
 function preload() {
   map1 = loadImage("images/floor1.png");
   map2 = loadImage("images/floor2.png");
@@ -40,7 +44,7 @@ function setup() {
 
 function draw() {
 
-  //alligning maps.
+  //Displays all images
   image(map1, 0, 300, map1.height/2.5, map1.width/2.5);
   image(map2, 0, map1.width/3 + 550, map2.height/1.7, map2.width/4.5);
   image(map3, width/2 - 250, map1.width/3 + map2.width/4.5 + 650, map3.height/0.7, map3.width/4.5);
