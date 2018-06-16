@@ -1,7 +1,17 @@
 //WMCI Pathfinding Algorithm
 //Catherine Liu & Csaba Nemeth
-//CS30, Period 5, Mr. D. Schellenberg
+//CS30 Major Project, Period 5, Mr. D. Schellenberg
 //June 15, 2018
+//
+//
+//This project allows the user to find their way around Walter Murray Collegiate based on
+//their starting location and where they want to go. It will display the shortest route.
+//
+//The intent for this project was for people to access the link on their phones and use it
+//to find their way around the school if they are unfamiliar with the room locations.
+// --> i.e. new grade nines, parents during PTIs, etc.
+//
+
 
 let translateX;
 

@@ -1,28 +1,24 @@
-// Room to Node Conversion
-// Catherine Liu
-// June 4, 2018
+//Contains UI and functions to identify the user's current location and where
+//they want to go (in terms of nodes).
 
-
+//Menu at the top of the screen where the user selects their rooms.
 function displayAllMenu(x, y) {
-
+  //variables to align different parts of menu.
   let modX = x + translateX;
   let constantX = 300;
 
   push();
   rectMode(CORNER);
-
   noStroke();
-
   fill(148, 186, 247);
   rect(x-110, y-25, constantX * 2 + 325, y + 65)
   textAlign(LEFT);
-
   fill(130, 130, 155);
   rect(x - 10, y + 25 + 5, modX + constantX + 80, 40)
   rect(x - 10, y + 25 + 5 + 63, modX + constantX + 40, 40)
 
   fill(0);
-  //LHS
+  //Left side UI.
   textStyle(BOLD);
   textSize(20);
   text("Enter Current Location", x, y);
@@ -35,8 +31,7 @@ function displayAllMenu(x, y) {
   text("Select Other Rooms", x, y + 90);
   otherRoomsStart.position(modX, y + 100);
 
-
-  ///RHS
+  //Right side UI.
   textStyle(BOLD);
   textSize(20);
   text("Enter Destination", x + constantX + 50, y)
@@ -49,13 +44,11 @@ function displayAllMenu(x, y) {
   text("Select Other Rooms", x + constantX + 50, y + 90);
   otherRoomsEnd.position(modX + constantX + 50, y + 100);
 
-  //other
-  //submitButton.position(modX + constantX + 360, y - 10);
+  //Refresh button.
   refreshButton.position(modX + constantX + 250, y + 30 + 5);
-
   pop();
 
-  // displayLegend(modX + 30, y + 80)
+  //Colour legend.
   push();
   rectMode(CENTER);
   text('= Washrooms', modX + constantX + 150, y + 85);
@@ -65,9 +58,10 @@ function displayAllMenu(x, y) {
   fill(237, 206, 83);
   rect(modX + constantX + 125, y + 110, 20, 20);
   pop();
-
 }
 
+
+//Let's user type in a room number.
 function roomInput() {
   //User types in a room number
   endRoomNumber = createInput('');
@@ -75,8 +69,8 @@ function roomInput() {
 }
 
 
+//User selects start and/or end room from a drop-down menu.
 function pickRoom() {
-  //user selects a room.
   otherRoomsStart = createSelect();
   otherRoomsStart.option('--');
   otherRoomsStart.option('Main Entrance');
@@ -101,7 +95,6 @@ function pickRoom() {
     startRoomNumber.value('');
     start = convertor(otherRoomsStart.value());
   });
-
 
   otherRoomsEnd = createSelect();
   otherRoomsEnd.position(660, 200);
@@ -131,13 +124,15 @@ function pickRoom() {
   });
 }
 
+
 function refreshButton() {
   refreshButton = createButton('Refresh');
   refreshButton.mousePressed(refresh);
 }
 
-function refresh() {
 
+//Refreshes rooms and route when button is clicked.
+function refresh() {
   start = null;
   end = null;
 
@@ -145,12 +140,13 @@ function refresh() {
   startRoomNumber.value('');
   otherRoomsStart.value('--');
   otherRoomsEnd.value('--');
-
 }
 
-function convertor(input) {
-  //input = input || otherRoomsEnd.value();
 
+//Converts the inputs from the user into corresponding nodes for the rooms.
+//If the user wants to go to 'Washrooms', then it will return the node of the nearest washrooms.
+function convertor(input) {
+  //Returns node of nearest washrooms.
   if (input === 'Washrooms') {
     if (start[1] === 1) {
       startCoords = firstFloorLocations[start[0]];
@@ -169,7 +165,7 @@ function convertor(input) {
     }
   }
 
-  //First Floor
+  //All other first floor locations.
   else if (input === 'Main Entrance') {
     return [0, 1];
   }
@@ -258,7 +254,7 @@ function convertor(input) {
     return [45, 1];
   }
 
-  //Second Floor
+  //All other second floor locations.
   else if (input === 205 || input === 207 || input === 208) {
     return [2, 2];
   }
@@ -308,7 +304,7 @@ function convertor(input) {
     return [29, 2];
   }
 
-  //Third Floor
+  //All other third floor locations.
   else if (input === 301) {
     return [1, 3];
   }
