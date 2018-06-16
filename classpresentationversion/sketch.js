@@ -1,34 +1,24 @@
 //WMCI Pathfinding Algorithm
 //Catherine Liu & Csaba Nemeth
-//CS30 Major Project, Period 5, Mr. D. Schellenberg
+//CS30, Period 5, Mr. D. Schellenberg
 //June 15, 2018
-//
-//
-//This project allows the user to find their way around Walter Murray Collegiate based on
-//their starting location and where they want to go. It will display the shortest route.
-//
-//The intent for this project was for people to access the link on their phones and use it
-//to find their way around the school if they are unfamiliar with the room locations.
-// --> i.e. new grade nines, parents during PTIs, etc.
-//
 
-
+//Translation of the cnv variable -> Important for formatting;
 let translateX;
 
-//Global Variables
-let finishedPath;
+//Images
 let map1, map2, map3;
-let nodeArray = [];
+
+//Inputs
+let otherRoomsStart, otherRoomsEnd, endRoomNumber, startRoomNumber, refreshButon;
+
+//Path Variables
+let finishedPath;
 let hypArray = [];
-
-let firstFloorPath, secondFloorPath, thirdFloorPath;
-
-let otherRoomsStart, otherRoomsEnd;
-let endRoomNumber, startRoomNumber, submitButton, refreshButon, text1, text2, text3, room;
-
 let start = null;
 let end = null;
 
+//Washroom Detection Variables
 let washroomLocations = [[367, 944], [633, 872], [357, 1501], [622, 1456], [235, 1813]];
 let startCoords;
 let closestWashroom;
@@ -40,59 +30,54 @@ function preload() {
   map3 = loadImage("images/floor3.png");
 }
 function setup() {
-  //makes the canvas a variable so that it behaves like an object and is easier to or shift.
+
+  //Creates a variable canvas to allow for shift onscreen.
   let cnv = createCanvas(800, 2000);
   translateX = (windowWidth - width) / 2;
   cnv.position(translateX, 0);
 
-  //Input and drop down bar for UI.
+  //Set up for inputs and buttons.
   roomInput();
   pickRoom();
   refreshButton();
 
 }
 
+//Draw Loop
 function draw() {
 
-  //alligning maps.
+  //Display all maps
   image(map1, 0, 300, map1.height/2.5, map1.width/2.5);
   image(map2, 0, map1.width/3 + 550, map2.height/1.7, map2.width/4.5);
   image(map3, width/2 - 250, map1.width/3 + map2.width/4.5 + 650, map3.height/0.7, map3.width/4.5);
 
-  //Draw Menu and text
+  //Display Menu and Text
   screenText();
   displayAllMenu(20, 100);
 
-
+  //If start and end nodes have not been defined, check for an input.
   if (start === null) {
-    start =convertor(int(startRoomNumber.value()));
+    start = convertor(int(startRoomNumber.value()));
   }
-
   if (end === null) {
     end = convertor(int(endRoomNumber.value()));
   }
 
-
-  //Draws Path
+  //If both start and end have been defined, draw the complete path on the screen.
   if (start !== null && end !== null) {
     finishedPath = createFullPath(start, end);
     drawFullPath(finishedPath);
   }
-  displayNodes(firstFloorLocations);
-  displayNodes(secondFloorLocations);
-  displayNodes(thirdFloorLocations);
-
-
 }
-
+//Displays text on the screen which isn't present in the menu;
 function screenText() {
   push();
 
   textStyle(BOLD);
-  textSize(50);
   textAlign(CENTER);
   fill(0);
 
+  textSize(50);
   text("Walter Murray Collegiate Institute", width/2, 50);
 
   textSize(25);
@@ -104,7 +89,9 @@ function screenText() {
 
 }
 
-//Drawing Functions
+//Functions that draw path-related graphics on the screen;
+
+//Draws a path based on an path-array located on a single floor: Input of nodes the path must go through, and the array holding all locations on the defined floor;
 function drawSinglePath(pathArray, nodeLocations) {
   for (let i = 0; i < pathArray.length - 1; i++) {
     push();
@@ -114,15 +101,21 @@ function drawSinglePath(pathArray, nodeLocations) {
     pop();
   }
 }
+//Draws the complete path by compiling smaller paths on single floors: Input received is an object.
 function drawFullPath(paths) {
+
+  //Although two routes are always defined, if the path to find is not multilevel, endNodeRoute will be disregarded(DNE).
   let startNodeRoute = paths.startNodeRoute;
   let endNodeRoute = paths.endNodeRoute;
 
+  //Matrix that defines the x,y coordinates of all nodes on the given floor, endNodeMatrix will be disregarded if not multilevel.
   let startNodeMatrix = paths.startNodeMatrix;
   let endNodeMatrix = paths.endNodeMatrix;
 
+  //Number of floors.
   let numberOfFloors = paths.floors;
 
+  //Draws two connecting paths (throug stairs) if the path is mutlilevel, else, draws the single path.
   if (numberOfFloors > 1) {
      drawSinglePath(startNodeRoute, startNodeMatrix);
      drawSinglePath(endNodeRoute, endNodeMatrix);
@@ -130,15 +123,17 @@ function drawFullPath(paths) {
   else {
     drawSinglePath(startNodeRoute, startNodeMatrix);
   }
-
+  //Markers for start and end are drawn.
   drawStartPosition();
   drawEndPosition();
 }
-
+//THESE TWO FUNCTIONS CAN EASILY BE COMBINED INTO ONE -> Not really nescesary and keeps the code more structured.
+//Draws a marker for the start position based on the global "start" variable.
 function drawStartPosition() {
   let positions;
   push();
   noStroke();
+  //Selects correct locations according to floor.
   if (start[1] === 1) {
     positions = firstFloorLocations;
   }
@@ -148,15 +143,19 @@ function drawStartPosition() {
   else if (start[1] === 3) {
     positions = thirdFloorLocations;
   }
+
   fill(0, 0, 255);
   ellipse(positions[start[0]][0], positions[start[0]][1], 15, 15);
   fill(0, 0, 255, 100);
   ellipse(positions[start[0]][0], positions[start[0]][1], 40, 40);
   pop();
 }
+//Draws a marker for the end position based on the global "end" variable.
 function drawEndPosition() {
   let positions;
+  noStroke();
   push();
+  //Selects correct locations according to floor.
   if (end[1] === 1) {
     positions = firstFloorLocations;
   }
@@ -166,7 +165,7 @@ function drawEndPosition() {
   else if (end[1] === 3) {
     positions = thirdFloorLocations;
   }
-  noStroke();
+
   fill(0, 255, 0);
   ellipse(positions[end[0]][0], positions[end[0]][1], 15, 15);
   fill(0, 255, 0, 100);
@@ -174,7 +173,9 @@ function drawEndPosition() {
   pop();
 }
 
-//Pathfinding Algorithm
+//PATH FINDING ALGORITHM -> Dijkstras Algorithm Logic based on Wikipedia and other explanatory sources.
+
+//Returns an object with the information nescesary to select the shortest path
 function shortestPath(matrix, startVertex) {
 
   //Creates three arrays with length equal to matrix
@@ -183,19 +184,24 @@ function shortestPath(matrix, startVertex) {
   let predecessors = new Array(matrix.length);
 
   done[startVertex] = true;
+
   //Loops through matrix[startVertex] and writes the values into the pathLengths array
   for (let i = 0; i < matrix.length; i++) {
+    //Copies values down from the input matrix into a local matrix.
     pathLengths[i] = matrix[startVertex][i];
+    //If there is no path connecting the startVertex with a vertex [i], it is written into predescessors.
     if (matrix[startVertex][i] !== Infinity) {
       predecessors[i] = startVertex;
     }
   }
 
-  //Length from node to itself is 0;
+  //Length from start to itself is 0;
   pathLengths[startVertex] = 0;
   for (let i = 0; i < matrix.length - 1; i++) {
     let closest = -1;
     let closestDistance = Infinity;
+
+    //Finds the distance between adjacent nodes
     for (let j = 0; j < matrix.length; j++) {
       if (!done[j] && pathLengths[j] < closestDistance) {
         closestDistance = pathLengths[j];
@@ -205,6 +211,7 @@ function shortestPath(matrix, startVertex) {
 
     done[closest] = true;
 
+    //Checks all visited locations to see if there is a possibly closer path to the startvertex.
     for (let j = 0; j < matrix.length; j++) {
       if (!done[j]) {
         let possiblyCloserDistance = pathLengths[closest] + matrix[closest][j];
@@ -219,24 +226,27 @@ function shortestPath(matrix, startVertex) {
     "distances": pathLengths,
     "tree": predecessors };
 }
+
+//Takes in the object and the endvertex, and constructs a path based on the distances from nodes
 function constructPath(object, endVertex) {
   let path = [];
+  //While the path has not yet been created -> pushes the values from the spanning tree
   do {
     path.unshift(endVertex);
     endVertex = object.tree[endVertex];
   }
   while (endVertex !== object.startVertex);
-
   path.unshift(object.startVertex);
   return path;
 }
+//Compiles the two functions into a single callable one.
 function findPath(matrix, startNode, endNode) {
   return constructPath(shortestPath(matrix, startNode), endNode);
 }
 
-function createFullPath(startNode, endNode) { //startNode and endNode are arrays with [nodeNumber, floor] -> stairs are 0
+//Combines to create full path if the path is multilevel by finding the route to each set of stairs and overlaying the paths with eachother.
+function createFullPath(startNode, endNode) {
   //Variables
-
   let floors;
 
   let startNodeRoute = null;
@@ -364,8 +374,6 @@ function displayNodes(array) {
     pop();
   }
 }
-
-
 function startRoom() {
   let array;
   if (mouseIsPressed && mouseY > 295 && mouseX > 0 && mouseX < 700 && !clickedMousePosition) {
