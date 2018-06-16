@@ -3,27 +3,27 @@
 //CS30, Period 5, Mr. D. Schellenberg
 //June 15, 2018
 
-//Images
-let map1, map2, map3;
+let translateX;
 
 //Global Variables
 let finishedPath;
-let translateX;
-
+let map1, map2, map3;
 let nodeArray = [];
 let hypArray = [];
 
-//Paths
 let firstFloorPath, secondFloorPath, thirdFloorPath;
-let otherRoomsStart, otherRoomsEnd, endRoomNumber, startRoomNumber;
+
+let otherRoomsStart, otherRoomsEnd;
+let endRoomNumber, startRoomNumber, submitButton, refreshButon, text1, text2, text3, room;
 
 let start = null;
 let end = null;
 
-//Buttons
-let refreshButon
+let washroomLocations = [[367, 944], [633, 872], [357, 1501], [622, 1456], [235, 1813]];
+let startCoords;
+let closestWashroom;
 
-//Loads all of the maps used in background.
+//loads all of the maps used in background.
 function preload() {
   map1 = loadImage("images/floor1.png");
   map2 = loadImage("images/floor2.png");
@@ -44,7 +44,7 @@ function setup() {
 
 function draw() {
 
-  //Displays all images
+  //alligning maps.
   image(map1, 0, 300, map1.height/2.5, map1.width/2.5);
   image(map2, 0, map1.width/3 + 550, map2.height/1.7, map2.width/4.5);
   image(map3, width/2 - 250, map1.width/3 + map2.width/4.5 + 650, map3.height/0.7, map3.width/4.5);
@@ -68,8 +68,11 @@ function draw() {
     finishedPath = createFullPath(start, end);
     drawFullPath(finishedPath);
   }
-
   displayNodes(firstFloorLocations);
+  displayNodes(secondFloorLocations);
+  displayNodes(thirdFloorLocations);
+
+
 }
 
 function screenText() {
@@ -238,8 +241,6 @@ function createFullPath(startNode, endNode) { //startNode and endNode are arrays
   let startNodeRoutes = [];
   let endNodeRoutes = [];
 
-  console.log(start);
-  console.log(end);
   if (startNode[1] !== endNode[1]) { //Other Floor Path
 
     floors = 2;

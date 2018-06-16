@@ -151,8 +151,26 @@ function refresh() {
 function convertor(input) {
   //input = input || otherRoomsEnd.value();
 
+  if (input === 'Washrooms') {
+    if (start[1] === 1) {
+      startCoords = firstFloorLocations[start[0]];
+      closestWashroom = (nearestNode(firstFloorLocations, washroomLocations[nearestNode(washroomLocations, startCoords)]));
+      return ([closestWashroom, 1]);
+    }
+    else if (start[1] === 2) {
+      startCoords = secondFloorLocations[start[0]];
+      closestWashroom = (nearestNode(secondFloorLocations, washroomLocations[nearestNode(washroomLocations, startCoords)]));
+      return ([closestWashroom, 2]);
+    }
+    else {
+      startCoords = thirdFloorLocations[start[0]];
+      closestWashroom = (nearestNode(thirdFloorLocations, washroomLocations[nearestNode(washroomLocations, startCoords)]));
+      return ([closestWashroom, 3]);
+    }
+  }
+
   //First Floor
-  if (input === 'Main Entrance') {
+  else if (input === 'Main Entrance') {
     return [0, 1];
   }
   else if (input === 'Main Office' || input === 'Washrooms (Gender Neutral)') {
@@ -164,7 +182,7 @@ function convertor(input) {
   else if (input === 'Student Services') {
     return [5, 1];
   }
-  else if (input === 101 || input === 102 || input === 103 || input === 'Washrooms1') {
+  else if (input === 101 || input === 102 || input === 103) {
     return [7, 1];
   }
   else if (input === 104 ||input === 105 || input === 107) {
@@ -175,9 +193,6 @@ function convertor(input) {
   }
   else if (input === 110 || input === 111) {
     return [10, 1];
-  }
-  else if (input === 'Washrooms2') {
-    return [13, 1];
   }
   else if (input === 112 || input === 113 || input === 114) {
     return [15, 1];
@@ -227,9 +242,8 @@ function convertor(input) {
   else if (input === 143) {
     return [40, 1];
   }
-  
-  else if (input === 144) {
-    return [48, 1];
+  else if (input === 145 || input === 147 || input === 144) {
+    return [41, 1];
   }
   else if (input === 'Tech Doors South Entrance') {
     return [42, 1];
@@ -245,7 +259,7 @@ function convertor(input) {
   }
 
   //Second Floor
-  else if (input === 205 || input === 207 || input === 208 || input === 'Washrooms3') {
+  else if (input === 205 || input === 207 || input === 208) {
     return [2, 2];
   }
   else if (input === 209 || input === 210 || input === 211) {
@@ -256,9 +270,6 @@ function convertor(input) {
   }
   else if (input === 215 || input === 216) {
     return [5, 2];
-  }
-  else if (input === 'Washrooms4') {
-    return [8, 2];
   }
   else if (input === 217) {
     return [9, 2];
@@ -301,7 +312,7 @@ function convertor(input) {
   else if (input === 301) {
     return [1, 3];
   }
-  else if (input === 303 || input === 'Washrooms5') {
+  else if (input === 303) {
     return [2, 3];
   }
   else if (input === 302 || input === 304 || input === 305) {
